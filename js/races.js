@@ -4,7 +4,7 @@ const JSON_FLUFF_URL = "data/fluff-races.json";
 
 window.onload = function load () {
 	ExcludeUtil.initialise();
-	DataUtil.loadJSON(JSON_URL, onJsonLoad)
+	DataUtil.loadJSON(JSON_URL).then(onJsonLoad)
 };
 
 function getAbilityObjs (abils) {
@@ -106,6 +106,7 @@ function onJsonLoad (data) {
 	BrewUtil.addBrewData(addRaces);
 	BrewUtil.makeBrewButton("manage-brew");
 	BrewUtil.bind({list, filterBox, sourceFilter});
+	ListUtil.loadState();
 
 	History.init();
 	handleFilterChange();
@@ -187,7 +188,12 @@ function addRaces (data) {
 	UrlUtil.bindLinkExportButton(filterBox);
 	ListUtil.bindDownloadButton();
 	ListUtil.bindUploadButton();
-	ListUtil.loadState();
+
+	$(`body`).on("click", ".btn-name-pronounce", function () {
+		const audio = $(this).find(`.name-pronounce`)[0];
+		audio.currentTime = 0;
+		audio.play();
+	});
 }
 
 function handleFilterChange () {
@@ -223,11 +229,19 @@ const renderer = EntryRenderer.getDefaultRenderer();
 function loadhash (id) {
 	renderer.setFirstSection(true);
 	const $pgContent = $("#pagecontent").empty();
-	$pgContent.find("td").show();
-
 	const race = raceList[id];
 
 	function buildStatsTab () {
+		function getPronunciationButton () {
+			return `<span class="btn btn-xs btn-default btn-name-pronounce">
+				<span class="glyphicon glyphicon-volume-up name-pronounce-icon"></span>
+				<audio class="name-pronounce">
+				   <source src="${race.soundClip}" type="audio/mpeg">
+				   <source src="audio/races/${/^(.*?)(\(.*?\))?$/.exec(race._baseName || race.name)[1].trim().toLowerCase()}.mp3" type="audio/mpeg">
+				</audio>
+			</span>`;
+		}
+
 		$pgContent.append(`
 		<tbody>
 		${EntryRenderer.utils.getBorderTr()}
@@ -240,7 +254,11 @@ function loadhash (id) {
 		</tbody>		
 		`);
 
-		$pgContent.find("th.name").html(`<span class="stats-name">${race.name}</span><span class="stats-source source${race.source}" title="${Parser.sourceJsonToFull(race.source)}">${Parser.sourceJsonToAbv(race.source)}</span>`);
+		$pgContent.find("th.name").html(`
+			<span class="stats-name">${race.name}</span>
+			${race.soundClip ? getPronunciationButton() : ""}
+			<span class="stats-source source${race.source}" title="${Parser.sourceJsonToFull(race.source)}">${Parser.sourceJsonToAbv(race.source)}</span>
+		`);
 
 		const size = Parser.sizeAbvToFull(race.size);
 		$pgContent.find("td#size span").html(size);
@@ -289,7 +307,7 @@ function loadhash (id) {
 			$pgContent.append($tr);
 			$pgContent.append(EntryRenderer.utils.getBorderTr());
 
-			DataUtil.loadJSON(JSON_FLUFF_URL, (data) => {
+			DataUtil.loadJSON(JSON_FLUFF_URL).then((data) => {
 				function renderMeta (prop) {
 					let $tr2 = get$Tr();
 					let $td2 = get$Td().appendTo($tr2);

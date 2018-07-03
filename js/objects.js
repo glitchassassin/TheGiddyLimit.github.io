@@ -4,7 +4,7 @@ const JSON_URL = "data/objects.json";
 
 window.onload = function load () {
 	ExcludeUtil.initialise();
-	DataUtil.loadJSON(JSON_URL, onJsonLoad);
+	DataUtil.loadJSON(JSON_URL).then(onJsonLoad);
 };
 
 let list;
@@ -30,6 +30,7 @@ function onJsonLoad (data) {
 	BrewUtil.addBrewData(addObjects);
 	BrewUtil.makeBrewButton("manage-brew");
 	BrewUtil.bind({list});
+	ListUtil.loadState();
 
 	History.init();
 }
@@ -71,7 +72,6 @@ function addObjects (data) {
 	});
 	ListUtil.bindPinButton();
 	EntryRenderer.hover.bindPopoutButton(objectsList);
-	ListUtil.loadState();
 }
 
 function getSublistItem (obj, pinId) {

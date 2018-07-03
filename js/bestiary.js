@@ -37,10 +37,14 @@ function getAllImmRest (toParse, key) {
 	return out;
 }
 
+function basename (str, sep) {
+	return str.substr(str.lastIndexOf(sep) + 1);
+}
+
 const meta = {};
 
 function loadMeta (nextFunction) {
-	DataUtil.loadJSON(JSON_DIR + META_URL, function (data) {
+	DataUtil.loadJSON(JSON_DIR + META_URL).then(function (data) {
 		// Convert the legendary Group JSONs into a look-up, i.e. use the name as a JSON property name
 		for (let i = 0; i < data.legendaryGroup.length; i++) {
 			meta[data.legendaryGroup[i].name] = {
@@ -67,7 +71,7 @@ function addLegendaryGroups (toAdd) {
 
 let ixFluff = {};
 function loadFluffIndex (nextFunction) {
-	DataUtil.loadJSON(JSON_DIR + FLUFF_INDEX, function (data) {
+	DataUtil.loadJSON(JSON_DIR + FLUFF_INDEX).then(function (data) {
 		ixFluff = data;
 		nextFunction();
 	});
@@ -86,6 +90,7 @@ window.onload = function load () {
 				BrewUtil.addBrewData(handleBrew);
 				BrewUtil.makeBrewButton("manage-brew");
 				BrewUtil.bind({list, filterBox, sourceFilter});
+				ListUtil.loadState();
 			});
 		});
 	});
@@ -112,6 +117,16 @@ const sizeFilter = new Filter({
 	displayFn: Parser.sizeAbvToFull
 });
 const speedFilter = new Filter({header: "Speed", items: ["walk", "burrow", "climb", "fly", "swim"], displayFn: StrUtil.uppercaseFirst});
+const strengthFilter = new RangeFilter({header: "Strength"});
+const dexterityFilter = new RangeFilter({header: "Dexterity"});
+const constitutionFilter = new RangeFilter({header: "Constitution"});
+const intelligenceFilter = new RangeFilter({header: "Intelligence"});
+const wisdomFilter = new RangeFilter({header: "Wisdom"});
+const charismaFilter = new RangeFilter({header: "Charisma"});
+const abilityScoreFilter = new MultiFilter("Ability Score", strengthFilter, dexterityFilter, constitutionFilter, intelligenceFilter, wisdomFilter, charismaFilter);
+abilityScoreFilter.setModeAnd();
+const acFilter = new RangeFilter({header: "Armor Class"});
+const averageHpFilter = new RangeFilter({header: "Average Hit Points"});
 const typeFilter = new Filter({
 	header: "Type",
 	items: [
@@ -206,13 +221,16 @@ const conditionImmuneFilter = new Filter({
 	items: CONDS,
 	displayFn: StrUtil.uppercaseFirst
 });
-const miscFilter = new Filter({header: "Miscellaneous", items: ["Familiar", "Legendary", "Swarm"], displayFn: StrUtil.uppercaseFirst});
+const miscFilter = new Filter({header: "Miscellaneous", items: ["Familiar", "Legendary", "Spellcaster", "Swarm"], displayFn: StrUtil.uppercaseFirst});
 
 const filterBox = initFilterBox(
 	sourceFilter,
 	crFilter,
 	sizeFilter,
 	speedFilter,
+	abilityScoreFilter,
+	acFilter,
+	averageHpFilter,
 	typeFilter,
 	tagFilter,
 	alignmentFilter,
@@ -324,6 +342,16 @@ function handleFilterChange () {
 			m._pCr,
 			m.size,
 			m._fSpeed,
+			[
+				m.str,
+				m.dex,
+				m.con,
+				m.int,
+				m.wis,
+				m.cha
+			],
+			m._fAc,
+			m._fHp,
 			m._pTypes.type,
 			m._pTypes.tags,
 			m._fAlign,
@@ -356,6 +384,8 @@ function addMonsters (data) {
 		mon._pTypes = Parser.monTypeToFullObj(mon.type); // store the parsed type
 		mon._pCr = mon.cr === undefined ? "Unknown" : (mon.cr.cr || mon.cr);
 		mon._fSpeed = Object.keys(mon.speed).filter(k => mon.speed[k]);
+		mon._fAc = mon.ac.map(it => it.ac || it);
+		mon._fHp = mon.hp.average;
 		const tempAlign = typeof mon.alignment[0] === "object"
 			? Array.prototype.concat.apply([], mon.alignment.map(a => a.alignment))
 			: [...mon.alignment];
@@ -385,10 +415,19 @@ function addMonsters (data) {
 		// populate filters
 		sourceFilter.addIfAbsent(new FilterItem(mon.source, () => {}));
 		crFilter.addIfAbsent(mon._pCr);
+		strengthFilter.addIfAbsent(mon.str);
+		dexterityFilter.addIfAbsent(mon.dex);
+		constitutionFilter.addIfAbsent(mon.con);
+		intelligenceFilter.addIfAbsent(mon.int);
+		wisdomFilter.addIfAbsent(mon.wis);
+		charismaFilter.addIfAbsent(mon.cha);
+		mon.ac.forEach(it => acFilter.addIfAbsent(it.ac || it));
+		if (mon.hp.average) averageHpFilter.addIfAbsent(mon.hp.average);
 		mon._pTypes.tags.forEach(t => tagFilter.addIfAbsent(t));
 		mon._fMisc = mon.legendary || mon.legendaryGroup ? ["Legendary"] : [];
 		if (mon.familiar) mon._fMisc.push("Familiar");
 		if (mon.type.swarmSize) mon._fMisc.push("Swarm");
+		if (mon.spellcasting) mon._fMisc.push("Spellcaster");
 	}
 	const lastSearch = ListUtil.getSearchTermAndReset(list);
 	table.append(textStack);
@@ -414,7 +453,12 @@ function addMonsters (data) {
 	UrlUtil.bindLinkExportButton(filterBox);
 	ListUtil.bindDownloadButton();
 	ListUtil.bindUploadButton(sublistFuncPreload);
-	ListUtil.loadState();
+
+	$(`body`).on("click", ".btn-name-pronounce", function () {
+		const audio = $(this).find(`.name-pronounce`)[0];
+		audio.currentTime = 0;
+		audio.play();
+	});
 }
 
 function sublistFuncPreload (json, funcOnload) {
@@ -531,9 +575,20 @@ function loadhash (id) {
 		let sourceFull = Parser.sourceJsonToFull(mon.source);
 		const type = mon._pTypes.asText;
 
+		function getPronunciationButton () {
+			return `<span class="btn btn-xs btn-default btn-name-pronounce">
+				<span class="glyphicon glyphicon-volume-up name-pronounce-icon"></span>
+				<audio class="name-pronounce">
+				   <source src="${mon.soundClip}" type="audio/mpeg">
+				   <source src="audio/bestiary/${basename(mon.soundClip, '/')}" type="audio/mpeg">
+				</audio>
+			</span>`;
+		}
+
 		const imgLink = mon.tokenURL || UrlUtil.link(`img/${source}/${name.replace(/"/g, "")}.png`);
 		$content.find("th.name").html(
 			`<span class="stats-name">${name}</span>
+			${mon.soundClip ? getPronunciationButton() : ""}
 		<span class="stats-source source${source}" title="${sourceFull}${EntryRenderer.utils.getSourceSubText(mon)}">${source}</span>
 		<a href="${imgLink}" target="_blank">
 			<img src="${imgLink}" class="token" onerror="imgError(this)">
@@ -547,7 +602,7 @@ function loadhash (id) {
 
 		$content.find("td span#alignment").html(Parser.alignmentListToFull(mon.alignment).toLowerCase());
 
-		$content.find("td span#ac").html(mon.ac);
+		$content.find("td span#ac").html(Parser.acToFull(mon.ac));
 
 		$content.find("td span#hp").html(EntryRenderer.monster.getRenderedHp(mon.hp));
 
@@ -901,7 +956,7 @@ function loadhash (id) {
 
 		if (ixFluff[mon.source] || mon.fluff) {
 			if (mon.fluff) handleFluff();
-			else DataUtil.loadJSON(JSON_DIR + ixFluff[mon.source], handleFluff);
+			else DataUtil.loadJSON(JSON_DIR + ixFluff[mon.source]).then(handleFluff);
 		} else {
 			$td.empty();
 			if (showImages) $td.append(HTML_NO_IMAGES);

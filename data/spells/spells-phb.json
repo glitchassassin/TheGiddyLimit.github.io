@@ -559,7 +559,8 @@
 					]
 				}
 			],
-			"page": 212
+			"page": 212,
+			"permanentEffects": true
 		},
 		{
 			"name": "Animate Objects",
@@ -1248,6 +1249,17 @@
 							"name": "Conquest",
 							"source": "XGE"
 						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Frost"
+						}
 					}
 				]
 			},
@@ -1445,7 +1457,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -1536,9 +1548,6 @@
 				"Life-preserving energy radiates from you in an aura with a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. Each non-hostile creature in the aura (including you) has resistance to necrotic damage, and its hit point maximum can't be reduced. In addition, a non-hostile, living creature regains 1 hit point when it starts its turn in the aura with 0 hit points."
 			],
 			"page": 216,
-			"damageInflict": [
-				"necrotic"
-			],
 			"damageResist": [
 				"necrotic"
 			]
@@ -1586,9 +1595,6 @@
 				"Purifying energy radiates from you in an aura with a 30-foot radius. Until the spell ends, the aura moves with you, centered on you. Each non-hostile creature in the aura (including you) can't become diseased, has resistance to poison damage, and has advantage on saving throws against effects that cause any of the following conditions: {@condition blinded}, {@condition charmed}, {@condition deafened}, {@condition frightened}, {@condition paralyzed}, {@condition poisoned}, and {@condition stunned}."
 			],
 			"page": 216,
-			"damageInflict": [
-				"poison"
-			],
 			"damageResist": [
 				"poison"
 			]
@@ -1696,7 +1702,8 @@
 				"After spending the casting time tracing magical pathways within a precious gemstone, you touch a huge or smaller beast or plant. The target must have either no Intelligence score or an Intelligence of 3 or less. The target gains an Intelligence of 10. The target also gains the ability to speak one language you know. If the target is a plant, it gains the ability to move its limbs, roots, vines, creepers, and so forth, and it gains senses similar to a human's. Your DM chooses statistics appropriate for the awakened plant, such as the statistics for the awakened shrub or the awakened tree.",
 				"The awakened beast or plant is {@condition charmed} by you for 30 days or until you and your companions do anything harmful to it. When the {@condition charmed} condition ends, the awakened creature chooses whether to remain friendly to you, based on how you treated it while it was {@condition charmed}."
 			],
-			"page": 216
+			"page": 216,
+			"permanentEffects": true
 		},
 		{
 			"name": "Bane",
@@ -2432,25 +2439,25 @@
 					]
 				},
 				{
-				    "type": "entries",
-				    "name": "Forceful Hand",
-				    "entries": [
+					"type": "entries",
+					"name": "Forceful Hand",
+					"entries": [
 						"The hand attempts to push a creature within 5 feet of it in a direction you choose. Make a check with the hand's Strength contested by the Strength (Athletics) check of the target. If the target is Medium or smaller, you have advantage on the check. If you succeed, the hand pushes the target up to 5 feet plus a number of feet equal to five times your spellcasting ability modifier. The hand moves with the target to remain within 5 feet of it."
-				    ]
+					]
 				},
 				{
-				    "type": "entries",
-				    "name": "Grasping Hand",
-				    "entries": [
+					"type": "entries",
+					"name": "Grasping Hand",
+					"entries": [
 						"The hand attempts to grapple a Huge or smaller creature within 5 feet of it. You use the hand's Strength score to resolve the grapple. If the target is Medium or smaller, you have advantage on the check. While the hand is grappling the target, you can use a bonus action to have the hand crush it. When you do so, the target takes bludgeoning damage equal to {@dice 2d6} + your spellcasting ability modifier."
-				    ]
+					]
 				},
 				{
-				    "type": "entries",
-				    "name": "Interposing Hand",
-				    "entries": [
+					"type": "entries",
+					"name": "Interposing Hand",
+					"entries": [
 						"The hand interposes itself between you and a creature you choose until you give the hand a different command. The hand moves to stay between you and the target, providing you with half cover against the target. The target can't move through the hand's space if its Strength score is less than or equal to the hand's Strength score. If its Strength score is higher than the hand's Strength score, the target can move toward you through the hand's space, but that space is difficult terrain for the target."
-				    ]
+					]
 				}
 			],
 			"entriesHigherLevel": [
@@ -3299,6 +3306,17 @@
 							"name": "Undying Light (UA)",
 							"source": "UALightDarkUnderdark"
 						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Fire"
+						}
 					}
 				]
 			},
@@ -3390,7 +3408,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -4034,7 +4052,8 @@
 				"This spell grows an inert duplicate of a living creature as a safeguard against death. This clone forms inside as a sealed vessel and grows to full size and maturity after 120 days; you can also choose to have the clone be a younger version of the same creature. It remains inert and endures indefinitely, as long as its vessel remains undisturbed.",
 				"At any time after the clone matures, if the original creature dies, its soul transfers to the clone, provided that the soul is free and willing to return. The clone is physically identical to the original and has the same personality, memories, and abilities, but none of the original's equipment. The original creature's physical remains, if they still exist, become inert and can't thereafter be restored to life, since the creature's soul is elsewhere."
 			],
-			"page": 222
+			"page": 222,
+			"permanentEffects": true
 		},
 		{
 			"name": "Cloud of Daggers",
@@ -4189,6 +4208,16 @@
 							"name": "Conquest",
 							"source": "XGE"
 						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
+						}
 					}
 				]
 			},
@@ -4203,7 +4232,7 @@
 					"type": "entries",
 					"name": "At Higher Levels",
 					"entries": [
-						"When you cast this spell using a spell slot of 6rd level or higher, the damage increases by {@dice 1d8} for each slot level above 5th."
+						"When you cast this spell using a spell slot of 6th level or higher, the damage increases by {@dice 1d8} for each slot level above 5th."
 					]
 				}
 			],
@@ -4607,7 +4636,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -4923,7 +4952,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -5189,10 +5218,10 @@
 				{
 					"type": "list",
 					"items": [
-						"One beast of challenge rating 2 or lower",
-						"Two beasts of challenge rating 1 or lower",
-						"Four beasts of challenge rating 1/2 or lower",
-						"Eight beasts of challenge rating 1/4 or lower"
+						"One {@filter beast of challenge rating 2 or lower|bestiary|cr=2|type=beast|miscellaneous=!swarm}",
+						"Two {@filter beasts of challenge rating 1 or lower|bestiary|cr=1|type=beast|miscellaneous=!swarm}",
+						"Four {@filter beasts of challenge rating 1/2 or lower|bestiary|cr=1/2|type=beast|miscellaneous=!swarm}",
+						"Eight {@filter beasts of challenge rating 1/4 or lower|bestiary|cr=0;1/8;1/4|type=beast|miscellaneous=!swarm}"
 					]
 				},
 				"Each beast is also considered fey, and it disappears when it drops to 0 hit points or when the spell ends.",
@@ -5294,15 +5323,15 @@
 			},
 			"source": "PHB",
 			"entries": [
-				"You summon a celestial of challenge rating 4 or lower, which appears in an unoccupied space that you can see within range. The celestial disappears when it drops to 0 hit points or when the spell ends.",
-				"The celestial is friendly to you and your companions for the duration. Roll initiative for the celestial, which has its own turns. It obeys any verbal commands that you issue to it (no action required by you), as long as they don't violate its alignment. If you don't issue any commands to the celestial, it defends itself from hostile creatures but otherwise takes no actions The DM has the celestial's statistics."
+				"You summon a {@filter celestial of challenge rating 4 or lower|bestiary|cr=0;1/8;1/4;1/2;1;2;3;4|type=celestial|miscellaneous=!swarm}, which appears in an unoccupied space that you can see within range. The celestial disappears when it drops to 0 hit points or when the spell ends.",
+				"The celestial is friendly to you and your companions for the duration. Roll initiative for the celestial, which has its own turns. It obeys any verbal commands that you issue to it (no action required by you), as long as they don't violate its alignment. If you don't issue any commands to the celestial, it defends itself from hostile creatures but otherwise takes no actions The DM has {@creature couatl|mm|the celestial}'s statistics."
 			],
 			"entriesHigherLevel": [
 				{
 					"type": "entries",
 					"name": "At Higher Levels",
 					"entries": [
-						"When you cast this spell using a 9th-level spell slot, you summon a celestial of challenge rating 5 or lower."
+						"When you cast this spell using a 9th-level spell slot, you summon a {@filter celestial of challenge rating 5 or lower|bestiary|cr=0;1/8;1/4;1/2;1;2;3;4;5|type=celestial|miscellaneous=!swarm}."
 					]
 				}
 			],
@@ -5367,7 +5396,7 @@
 			},
 			"source": "PHB",
 			"entries": [
-				"You call forth an elemental servant. Choose an area of air, earth, fire, or water that fills a 10-foot cube within range. An elemental of challenge rating 5 or lower appropriate to the area you chose appears in an unoccupied space within 10 feet of it. For example, a fire elemental emerges from a bonfire, and an earth elemental rises up from the ground. The elemental disappears when it drops to 0 hit points or when the spell ends.",
+				"You call forth an elemental servant. Choose an area of air, earth, fire, or water that fills a 10-foot cube within range. An {@filter elemental of challenge rating 5 or lower|bestiary|cr=0;1/8;1/4;1/2;1;2;3;4;5|type=elemental|miscellaneous=!swarm} appropriate to the area you chose appears in an unoccupied space within 10 feet of it. For example, a {@creature fire elemental} emerges from a bonfire, and an {@creature earth elemental} rises up from the ground. The elemental disappears when it drops to 0 hit points or when the spell ends.",
 				"The elemental is friendly to you and your companions for the duration. Roll initiative for the elemental, which has its own turns. It obeys any verbal commands that you issue to it (no action required by you). If you don't issue any commands to the elemental, it defends itself from hostile creatures but otherwise takes no actions.",
 				"If your concentration is broken, the elemental doesn't disappear. Instead, you lose control of the elemental, it becomes hostile toward you and your companions, and it might attack. An uncontrolled elemental can't be dismissed by you, and it disappears 1 hour after you summoned it. The DM has the elemental's statistics."
 			],
@@ -5427,7 +5456,7 @@
 			},
 			"source": "PHB",
 			"entries": [
-				"You summon a fey creature of challenge rating 6 or lower, or a fey spirit that takes the form of a beast of challenge rating 6 or lower. It appears in an unoccupied space that you can see within range. The fey creature disappears when it drops to 0 hit points or when the spell ends.",
+				"You summon a {@filter fey creature of challenge rating 6 or lower|bestiary|cr=0;1/8;1/4;1/2;1;2;3;4;5;6|type=fey|miscellaneous=!swarm}, or a fey spirit that takes the form of a {@filter beast of challenge rating 6 or lower|bestiary|cr=0;1/8;1/4;1/2;1;2;3;4;5;6|type=beast|miscellaneous=!swarm}. It appears in an unoccupied space that you can see within range. The fey creature disappears when it drops to 0 hit points or when the spell ends.",
 				"The fey creature is friendly to you and your companions for the duration. Roll initiative for the creature, which has its own turns. It obeys any verbal commands that you issue to it (no action required by you), as long as they don't violate its alignment. If you don't issue any commands to the fey creature, it defends itself from hostile creatures but otherwise takes no actions.",
 				"If your concentration is broken, the fey creature doesn't disappear. Instead, you lose control of the fey creature, it becomes hostile toward you and your companions, and it might attack. An uncontrolled fey creature can't be dismissed by you, and it disappears 1 hour after you summoned it. The DM has the fey creature's statistics."
 			],
@@ -5491,10 +5520,10 @@
 				{
 					"type": "list",
 					"items": [
-						"One elemental of challenge rating 2 or lower",
-						"Two elementals of challenge rating 1 or lower",
-						"Four elementals of challenge rating 1/2 or lower",
-						"Eight elementals of challenge rating 1/4 or lower."
+						"One {@filter elemental of challenge rating 2 or lower|bestiary|cr=2|type=elemental|miscellaneous=!swarm}",
+						"Two {@filter elementals of challenge rating 1 or lower|bestiary|cr=1|type=elemental|miscellaneous=!swarm}",
+						"Four {@filter elementals of challenge rating 1/2 or lower|bestiary|cr=1/2|type=elemental|miscellaneous=!swarm}",
+						"Eight {@filter elementals of challenge rating 1/4 or lower|bestiary|cr=0;1/8;1/4|type=elemental|miscellaneous=!swarm}."
 					]
 				},
 				"An elemental summoned by this spell disappears when it drops to 0 hit points or when the spell ends.",
@@ -5605,10 +5634,10 @@
 				{
 					"type": "list",
 					"items": [
-						"One fey creature of challenge rating 2 or lower",
-						"Two fey creatures of challenge rating 1 or lower",
-						"Four fey creatures of challenge rating 1/2 or lower",
-						"Eight fey creatures of challenge rating 1/4 or lower"
+						"One {@filter fey creature of challenge rating 2 or lower|bestiary|cr=2|type=fey|miscellaneous=!swarm}",
+						"Two {@filter fey creatures of challenge rating 1 or lower|bestiary|cr=1|type=fey|miscellaneous=!swarm}",
+						"Four {@filter fey creatures of challenge rating 1/2 or lower|bestiary|cr=1/2|type=fey|miscellaneous=!swarm}",
+						"Eight {@filter fey creatures of challenge rating 1/4 or lower|bestiary|cr=0;1/8;1/4|type=fey|miscellaneous=!swarm}"
 					]
 				},
 				"A summoned creature disappears when it drops to 0 hit points or when the spell ends. The summoned creatures are friendly to you and your companions. Roll initiative for the summoned creatures as a group, which have their own turns. They obey any verbal commands that you issue to them (no action required by you). If you don't issue any commands to them, they defend themselves from hostile creatures, but otherwise take no actions. The DM has the creatures' statistics."
@@ -5975,7 +6004,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -6444,7 +6473,8 @@
 					]
 				}
 			],
-			"page": 229
+			"page": 229,
+			"permanentEffects": true
 		},
 		{
 			"name": "Create or Destroy Water",
@@ -6491,7 +6521,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -6524,7 +6554,8 @@
 					]
 				}
 			],
-			"page": 229
+			"page": 229,
+			"permanentEffects": true
 		},
 		{
 			"name": "Creation",
@@ -7008,6 +7039,16 @@
 							"name": "Oathbreaker",
 							"source": "DMG"
 						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
+						}
 					}
 				]
 			},
@@ -7327,7 +7368,7 @@
 			"components": {
 				"v": true,
 				"s": true,
-				"m": "a tine ball of bat guano and sulfur"
+				"m": "a tiny ball of bat guano and sulfur"
 			},
 			"duration": [
 				{
@@ -7421,7 +7462,8 @@
 				"You create a shadowy door on a flat solid surface that you can see within range. The door is large enough to allow Medium creatures to pass through unhindered. When opened, the door leads to a demiplane that appears to be an empty room 30 feet in each dimension, made of wood or stone. When the spell ends, the door disappears, and any creatures or objects inside the demiplane remain trapped there, as the door also disappears from the other side.",
 				"Each time you cast this spell, you can create a new demiplane, or have the shadowy door connect to a demiplane you created with a previous casting of this spell. Additionally, if you know the nature and contents of a demiplane created by a casting of this spell by another creature, you can have the shadowy door connect to its demiplane instead."
 			],
-			"page": 231
+			"page": 231,
+			"permanentEffects": true
 		},
 		{
 			"name": "Destructive Wave",
@@ -7853,6 +7895,16 @@
 						"subclass": {
 							"name": "Ambition (PSA)",
 							"source": "PSA"
+						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
 						}
 					}
 				]
@@ -9469,6 +9521,19 @@
 						"name": "Artificer",
 						"source": "UAArtificer"
 					}
+				],
+				"fromSubclass": [
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Hill"
+						}
+					}
 				]
 			},
 			"source": "PHB",
@@ -9615,6 +9680,17 @@
 						"subclass": {
 							"name": "Primeval Guardian (UA)",
 							"source": "UARangerAndRogue"
+						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Stone"
 						}
 					}
 				]
@@ -9816,7 +9892,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -10054,7 +10130,8 @@
 				"Choose raw materials that you can see within range. You can fabricate a Large or smaller object (contained within a 10-foot cube, or eight connected 5-foot cubes), given a sufficient quantity of raw material. If you are working with metal, stone, or another mineral substance, however, the fabricated object can be no larger than Medium (contained within a single 5-foot cube). The quality of objects made by the spell is commensurate with the quality of the raw materials.",
 				"Creatures or magic items can't be created or transmuted by this spell. You also can't use it to create items that ordinarily require a high degree of craftsmanship, such as jewelry, weapons, glass, or armor, unless you have proficiency with the type of artisan's tools used to craft such objects."
 			],
-			"page": 239
+			"page": 239,
+			"permanentEffects": true
 		},
 		{
 			"name": "Faerie Fire",
@@ -10116,6 +10193,16 @@
 						"subclass": {
 							"name": "Archfey",
 							"source": "PHB"
+						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
 						}
 					}
 				]
@@ -10344,6 +10431,16 @@
 							"name": "Gloom Stalker",
 							"source": "XGE"
 						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
+						}
 					}
 				]
 			},
@@ -10565,8 +10662,8 @@
 				"For the spell's duration, or until you use an action to touch the target and dismiss the spell, the target appears dead to all outward inspection and to spells used to determine the target's status. The target is {@condition blinded} and {@condition incapacitated}, and its speed drops to 0. The target has resistance to all damage except psychic damage. If the target is diseased or {@condition poisoned} when you cast the spell, or becomes diseased or {@condition poisoned} while under the spell's effect, the disease and poison have no effect until the spell ends."
 			],
 			"page": 240,
-			"damageInflict": [
-				"psychic"
+			"damageResist": [
+				"acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "radiant", "slashing", "thunder"
 			]
 		},
 		{
@@ -10620,7 +10717,8 @@
 				"You can't have more than one familiar at a time. If you cast this spell while you already have a familiar, you instead cause it to adopt a new form. Choose one of the forms from the above list. Your familiar transforms into the chosen creature.",
 				"Finally, when you cast a spell with a range of touch, your familiar can deliver the spell as if it had cast the spell. Your familiar must be within 100 feet of you, and it must use its reaction to deliver the spell when you cast it. If the spell requires an attack roll, you use your attack modifier for the roll."
 			],
-			"page": 240
+			"page": 240,
+			"permanentEffects": true
 		},
 		{
 			"name": "Find Steed",
@@ -10658,7 +10756,7 @@
 			},
 			"source": "PHB",
 			"entries": [
-				"You summon a spirit that assumes the form of an unusually intelligent, strong, and loyal steed, creating a long-lasting bond with it. Appearing in an unoccupied space within range, the steed takes on a form that you choose: a warhorse, a pony, a camel, an elk, or a mastiff. (Your DM might allow other animals to be summoned as steeds.) The steed has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of its normal type. Additionally, if your steed has an Intelligence of 5 or less, its Intelligence becomes 6, and it gains the ability to understand one language of your choice that you speak.",
+				"You summon a spirit that assumes the form of an unusually intelligent, strong, and loyal steed, creating a long-lasting bond with it. Appearing in an unoccupied space within range, the steed takes on a form that you choose: a {@creature warhorse}, a {@creature pony}, a {@creature camel}, an {@creature elk}, or a {@creature mastiff}. (Your DM might allow other animals to be summoned as steeds.) The steed has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of its normal type. Additionally, if your steed has an Intelligence of 5 or less, its Intelligence becomes 6, and it gains the ability to understand one language of your choice that you speak.",
 				"Your steed serves you as a mount, both in combat and out, and you have an instinctive bond with it that allows you to fight as a seamless unit. While mounted on your steed, you can make any spell you cast that targets only you also target your steed.",
 				"When the steed drops to 0 hit points, it disappears, leaving behind no physical form. You can also dismiss your steed at any time as an action, causing it to disappear. In either case, casting this spell again summons the same steed, restored to its hit point maximum.",
 				"While your steed is within 1 mile of you, you can communicate with it telepathically.",
@@ -10826,7 +10924,8 @@
 			],
 			"savingThrow": [
 				"constitution"
-			]
+			],
+			"permanentEffects": true
 		},
 		{
 			"name": "Fire Bolt",
@@ -10863,6 +10962,19 @@
 					{
 						"name": "Wizard",
 						"source": "PHB"
+					}
+				],
+				"fromSubclass": [
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Fire"
+						}
 					}
 				]
 			},
@@ -11391,6 +11503,17 @@
 							"name": "Celestial",
 							"source": "XGE"
 						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Fire"
+						}
 					}
 				]
 			},
@@ -11599,6 +11722,17 @@
 							"name": "Tempest",
 							"source": "PHB"
 						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Cloud"
+						}
 					}
 				]
 			},
@@ -11672,7 +11806,8 @@
 			"damageInflict": [
 				"necrotic",
 				"radiant"
-			]
+			],
+			"permanentEffects": true
 		},
 		{
 			"name": "Forcecage",
@@ -12363,6 +12498,16 @@
 						"subclass": {
 							"name": "Primeval Guardian (UA)",
 							"source": "UARangerAndRogue"
+						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
 						}
 					}
 				]
@@ -13193,7 +13338,8 @@
 				"The whole warded area radiates magic. A dispel magic cast on a specific effect, if successful, removes only that effect.",
 				"You can create a permanently guarded and warded structure by casting this spell there every day for one year."
 			],
-			"page": 248
+			"page": 248,
+			"permanentEffects": true
 		},
 		{
 			"name": "Guidance",
@@ -13385,8 +13531,19 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
+						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Storm"
 						}
 					}
 				]
@@ -14252,6 +14409,17 @@
 							"name": "Order (UA)",
 							"source": "UAOrderDomain"
 						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Hill"
+						}
 					}
 				]
 			},
@@ -14421,6 +14589,16 @@
 							"name": "Redemption",
 							"source": "XGE"
 						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
+						}
 					}
 				]
 			},
@@ -14581,6 +14759,17 @@
 						"subclass": {
 							"name": "Order (UA)",
 							"source": "UAOrderDomain"
+						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Frost"
 						}
 					}
 				]
@@ -15597,6 +15786,17 @@
 							"name": "Treachery (UA)",
 							"source": "UAPaladin"
 						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Cloud"
+						}
 					}
 				]
 			},
@@ -15677,6 +15877,16 @@
 						"subclass": {
 							"name": "Seeker (UA)",
 							"source": "UATheFaithful"
+						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
 						}
 					}
 				]
@@ -15891,7 +16101,8 @@
 				"While the chest remains on the Ethereal Plane, you can use an action and touch the replica to recall the chest. It appears in an unoccupied space on the ground within 5 feet of you. You can send the chest back to the Ethereal Plane by using an action and touching both the chest and the replica.",
 				"After 60 days, there is a cumulative 5 percent chance per day that the spell's effect ends. This effect ends if you cast this spell again, if the smaller replica chest is destroyed, or if you choose to end the spell as an action. If the spell ends and the larger chest is on the Ethereal Plane, it is irretrievably lost."
 			],
-			"page": 254
+			"page": 254,
+			"permanentEffects": true
 		},
 		{
 			"name": "Leomund's Tiny Hut",
@@ -17260,9 +17471,6 @@
 				}
 			],
 			"page": 258,
-			"damageInflict": [
-				"thunder"
-			],
 			"opposedCheck": [
 				"intelligence"
 			]
@@ -17750,7 +17958,7 @@
 			},
 			"source": "PHB",
 			"entries": [
-				"This spell repairs a single break or tear in an object you touch, such as broken chain link, two halves of a broken key, a torn clack, or a leaking wineskin. As long as the break or tear is no larger than 1 foot in any dimension, you mend it, leaving no trace of the former damage.",
+				"This spell repairs a single break or tear in an object you touch, such as broken chain link, two halves of a broken key, a torn cloak, or a leaking wineskin. As long as the break or tear is no larger than 1 foot in any dimension, you mend it, leaving no trace of the former damage.",
 				"This spell can physically repair a magic item or construct, but the spell can't restore magic to such an object."
 			],
 			"page": 259
@@ -17961,6 +18169,19 @@
 					{
 						"name": "Wizard",
 						"source": "PHB"
+					}
+				],
+				"fromSubclass": [
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Cloud"
+						}
 					}
 				]
 			},
@@ -18360,7 +18581,8 @@
 			"page": 261,
 			"savingThrow": [
 				"wisdom"
-			]
+			],
+			"permanentEffects": true
 		},
 		{
 			"name": "Moonbeam",
@@ -18615,7 +18837,8 @@
 					]
 				}
 			],
-			"page": 262
+			"page": 262,
+			"permanentEffects": true
 		},
 		{
 			"name": "Mordenkainen's Sword",
@@ -18879,7 +19102,8 @@
 					]
 				}
 			],
-			"page": 263
+			"page": 263,
+			"permanentEffects": true
 		},
 		{
 			"name": "Otiluke's Freezing Sphere",
@@ -19504,7 +19728,7 @@
 			},
 			"source": "PHB",
 			"entries": [
-				"You beseech an otherworldly entity for aid. The being must be known to you: a god, a primordial, a demon prince, or some other being of cosmic power. That entity sends a celestial, an elemental, or a fiend loyal to it to aid you, making the creature appear in an unoccupied space within range. If you know a specific creature's name, you can speak that name when you cast this spell to request that creature, though you might get a different creature anyway (DM's choice).",
+				"You beseech an otherworldly entity for aid. The being must be known to you: a god, a primordial, a demon prince, or some other being of cosmic power. That entity sends a {@filter celestial|bestiary|type=celestial|cr=null|miscellaneous=!swarm}, an {@filter elemental|bestiary|type=elemental|cr=null|miscellaneous=!swarm}, or a {@filter fiend|bestiary|type=fiend|cr=null|miscellaneous=!swarm} loyal to it to aid you, making the creature appear in an unoccupied space within range. If you know a specific creature's name, you can speak that name when you cast this spell to request that creature, though you might get a different creature anyway (DM's choice).",
 				"When the creature appears, it is under no compulsion to behave in any particular way. You can ask the creature to perform a service in exchange for payment, but it isn't obliged to do so. The requested task could range from simple (fly us across the chasm, or help us fight a battle) to complex (spy on our enemies, or protect us during our foray into the dungeon). You must be able to communicate with the creature to bargain for its services.",
 				"Payment can take a variety of forms. A celestial might require a sizable donation of gold or magic items to an allied temple, while a fiend might demand a living sacrifice or a gift of treasure. Some creatures might exchange their service for a quest undertaken by you.",
 				"As a rule of thumb, a task that can be measured in minutes requires a payment worth 100 gp per minute. A task measured in hours requires 1,000 gp per hour. And a task measured in days (up to 10 days) requires 10,000 gp per day. The DM can adjust these payments based on the circumstances under which you cast the spell. If the task is aligned with the creature's ethos, the payment might be halved or even waived. Nonhazardous tasks typically require only half the suggested payment, while especially dangerous tasks might require a greater gift. Creatures rarely accept tasks that seem suicidal.",
@@ -19622,7 +19846,7 @@
 			},
 			"source": "PHB",
 			"entries": [
-				"With this spell, you attempt to bind a celestial, an elemental, a fey, or a fiend to your service. The creature must be within range for the entire casting of the spell. (Typically, the creature is first summoned into the center of an inverted magic circle in order to keep it trapped while this spell is cast.) At the completion of the casting, the target must make a Charisma saving throw. On a failed save, it is bound to serve you for the duration. If the creature was summoned or created by another spell, that spell's duration is extended to match the duration of this spell.",
+				"With this spell, you attempt to bind a {@filter celestial|bestiary|type=celestial|cr=null|miscellaneous=!swarm}, an {@filter elemental|bestiary|type=elemental|cr=null|miscellaneous=!swarm}, a {@filter fey|bestiary|type=fey|cr=null|miscellaneous=!swarm}, or a {@filter fiend|bestiary|type=fiend|cr=null|miscellaneous=!swarm} to your service. The creature must be within range for the entire casting of the spell. (Typically, the creature is first summoned into the center of an inverted magic circle in order to keep it trapped while this spell is cast.) At the completion of the casting, the target must make a Charisma saving throw. On a failed save, it is bound to serve you for the duration. If the creature was summoned or created by another spell, that spell's duration is extended to match the duration of this spell.",
 				"A bound creature must follow your instructions to the best of its ability. You might command the creature to accompany you on an adventure, to guard a location, or to deliver a message. The creature obeys the letter of your instructions, but if the creature is hostile to you, it strives to twist your words to achieve its own objectives. If the creature carries out your instructions completely before the spell ends, it travels to you to report this fact if you are on the same plane of existence. If you are on a different plane of existence, it returns to the place where you bound it and remains there until the spell ends."
 			],
 			"entriesHigherLevel": [
@@ -19927,7 +20151,7 @@
 			"source": "PHB",
 			"entries": [
 				"This spell transforms a creature with at least 1 hit point that you can see within range into a new form. An unwilling creature must make a Wisdom saving throw to avoid the effect. A shapechanger automatically succeeds on this saving throw.",
-				"The transformation lasts for the duration, or until the target drops to 0 hit points or dies. The new form can be any beast whose challenge rating is equal to or less than the target's (or the target's level, if it doesn't have a challenge rating). The target's game statistics, including mental ability scores, are replaced by the statistics of the chosen beast. It retains its alignment and personality.",
+				"The transformation lasts for the duration, or until the target drops to 0 hit points or dies. The new form can be any {@filter beast|bestiary|cr=null|type=beast|miscellaneous=!swarm} whose challenge rating is equal to or less than the target's (or the target's level, if it doesn't have a challenge rating). The target's game statistics, including mental ability scores, are replaced by the statistics of the chosen beast. It retains its alignment and personality.",
 				"The target assumes the hit points of its new form. When it reverts to its normal form, the creature returns to the number of hit points it had before it transformed. If it reverts as a result of dropping to 0 hit points, any excess damage carries over to its normal form. As long as the excess damage doesn't reduce the creature's normal form to 0 hit points, it isn't knocked {@condition unconscious}.",
 				"The creature is limited in the actions it can perform by the nature of its new form, and it can't speak, cast spells, or take any other action that requires hands or speech.",
 				"The target's gear melds into the new form. The creature can't activate, use, wield, or otherwise benefit from any of its equipment.",
@@ -20310,7 +20534,8 @@
 				"dexterity",
 				"constitution",
 				"wisdom"
-			]
+			],
+			"permanentEffects": true
 		},
 		{
 			"name": "Prismatic Wall",
@@ -20419,7 +20644,8 @@
 				"constitution",
 				"dexterity",
 				"wisdom"
-			]
+			],
+			"permanentEffects": true
 		},
 		{
 			"name": "Produce Flame",
@@ -21004,9 +21230,6 @@
 				"For the duration, the target has advantage on saving throws against being {@condition poisoned}, and it has resistance to poison damage."
 			],
 			"page": 270,
-			"damageInflict": [
-				"poison"
-			],
 			"damageResist": [
 				"poison"
 			]
@@ -21338,6 +21561,19 @@
 					{
 						"name": "Wizard",
 						"source": "PHB"
+					}
+				],
+				"fromSubclass": [
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Frost"
+						}
 					}
 				]
 			},
@@ -21779,6 +22015,19 @@
 					{
 						"name": "Druid",
 						"source": "PHB"
+					}
+				],
+				"fromSubclass": [
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Stone"
+						}
 					}
 				]
 			},
@@ -23232,6 +23481,19 @@
 						"name": "Druid",
 						"source": "PHB"
 					}
+				],
+				"fromSubclass": [
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Hill"
+						}
+					}
 				]
 			},
 			"source": "PHB",
@@ -23274,6 +23536,19 @@
 					{
 						"name": "Wizard",
 						"source": "PHB"
+					}
+				],
+				"fromSubclass": [
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Storm"
+						}
 					}
 				]
 			},
@@ -23374,13 +23649,7 @@
 			"entries": [
 				"For the duration, no sound can be created within or pass through a 20-foot-radius sphere centered on a point you choose within range. Any creature or object entirely inside the sphere is immune to thunder damage, and creatures are {@condition deafened} while entirely inside it. Casting a spell that includes a verbal component is impossible there."
 			],
-			"page": 275,
-			"damageInflict": [
-				"thunder"
-			],
-			"damageImmune": [
-				"thunder"
-			]
+			"page": 275
 		},
 		{
 			"name": "Silent Image",
@@ -23511,7 +23780,7 @@
 			"components": {
 				"v": true,
 				"s": true,
-				"m": "a pinch of find sand, rose petals, or a cricket"
+				"m": "a pinch of fine sand, rose petals, or a cricket"
 			},
 			"duration": [
 				{
@@ -24190,6 +24459,17 @@
 							"source": "PHB",
 							"subSubclass": "Mountain"
 						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Stone"
+						}
 					}
 				]
 			},
@@ -24807,7 +25087,7 @@
 				"This spell turns the flesh of a willing creature you touch as hard as stone. Until the spell ends, the target has resistance to nonmagical bludgeoning, piercing, and slashing damage."
 			],
 			"page": 278,
-			"damageInflict": [
+			"damageResist": [
 				"bludgeoning",
 				"piercing",
 				"slashing"
@@ -25615,7 +25895,8 @@
 					]
 				}
 			],
-			"page": 281
+			"page": 281,
+			"permanentEffects": true
 		},
 		{
 			"name": "Teleportation Circle",
@@ -25725,7 +26006,8 @@
 				"Many major temples, guilds, and other important places have permanent teleportation circles inscribed somewhere within their confines. Each such circle includes a unique sigil sequence\u2014a string of magical runes arranged in a particular pattern. When you first gain the ability to cast this spell, you learn the sigil sequences for two destinations on the Material Plane, determined by the DM. You can learn additional sigil sequences during your adventures. You can commit a new sigil sequence to memory after studying it for 1 minute.",
 				"You can create a permanent teleportation circle by casting this spell in the same location every day for one year. You need not use the circle to teleport when you cast the spell in this way."
 			],
-			"page": 282
+			"page": 282,
+			"permanentEffects": true
 		},
 		{
 			"name": "Tenser's Floating Disk",
@@ -26011,8 +26293,19 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
+						}
+					},
+					{
+						"class": {
+							"name": "Sorcerer",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Giant Soul (UA)",
+							"source": "UAGiantSoulSorcerer",
+							"subSubclass": "Storm"
 						}
 					}
 				]
@@ -26348,7 +26641,8 @@
 			"page": 283,
 			"savingThrow": [
 				"wisdom"
-			]
+			],
+			"permanentEffects": true
 		},
 		{
 			"name": "True Resurrection",
@@ -26718,6 +27012,16 @@
 							"name": "Grave",
 							"source": "XGE"
 						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
+						}
 					}
 				]
 			},
@@ -27057,8 +27361,7 @@
 			],
 			"page": 285,
 			"damageInflict": [
-				"cold",
-				"fire"
+				"cold"
 			],
 			"savingThrow": [
 				"dexterity",
@@ -27149,7 +27452,8 @@
 			"page": 287,
 			"savingThrow": [
 				"dexterity"
-			]
+			],
+			"permanentEffects": true
 		},
 		{
 			"name": "Wall of Thorns",
@@ -27357,7 +27661,7 @@
 							"source": "PHB"
 						},
 						"subclass": {
-							"name": "Kraken (UA)",
+							"name": "Kraken (Stream)",
 							"source": "Stream"
 						}
 					}
@@ -27514,6 +27818,16 @@
 							"name": "Land",
 							"source": "PHB",
 							"subSubclass": "Underdark"
+						}
+					},
+					{
+						"class": {
+							"name": "Warlock",
+							"source": "PHB"
+						},
+						"subclass": {
+							"name": "Lolth (Twitter)",
+							"source": "Twitter"
 						}
 					}
 				]

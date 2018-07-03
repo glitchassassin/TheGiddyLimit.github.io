@@ -4,22 +4,21 @@ const JSON_URL = "data/rewards.json";
 
 window.onload = function load () {
 	ExcludeUtil.initialise();
-	DataUtil.loadJSON(JSON_URL, onJsonLoad);
+	DataUtil.loadJSON(JSON_URL).then(onJsonLoad);
 };
 
 let list;
 const sourceFilter = getSourceFilter();
+const typeFilter = new Filter({
+	header: "Type",
+	items: [
+		"Blessing",
+		"Boon",
+		"Charm"
+	]
+});
 let filterBox;
 function onJsonLoad (data) {
-	const typeFilter = new Filter({
-		header: "Type",
-		items: [
-			"Blessing",
-			"Boon",
-			"Charm"
-		]
-	});
-
 	filterBox = initFilterBox(sourceFilter, typeFilter);
 
 	list = ListUtil.search({
@@ -46,6 +45,7 @@ function onJsonLoad (data) {
 	BrewUtil.addBrewData(addRewards);
 	BrewUtil.makeBrewButton("manage-brew");
 	BrewUtil.bind({list, filterBox, sourceFilter});
+	ListUtil.loadState();
 
 	History.init();
 	handleFilterChange();
@@ -74,12 +74,14 @@ function addRewards (data) {
 
 		// populate filters
 		sourceFilter.addIfAbsent(reward.source);
+		typeFilter.addIfAbsent(reward.type);
 	}
 	const lastSearch = ListUtil.getSearchTermAndReset(list);
 	$("ul.rewards").append(tempString);
 
 	// sort filters
 	sourceFilter.items.sort(SortUtil.ascSort);
+	typeFilter.items.sort(SortUtil.ascSort);
 
 	list.reIndex();
 	if (lastSearch) list.search(lastSearch);
@@ -97,7 +99,6 @@ function addRewards (data) {
 	UrlUtil.bindLinkExportButton(filterBox);
 	ListUtil.bindDownloadButton();
 	ListUtil.bindUploadButton();
-	ListUtil.loadState();
 }
 
 function handleFilterChange () {

@@ -1331,6 +1331,7 @@
 			"source": "DMG",
 			"page": 152,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"While wearing this armor, you have resistance to bludgeoning damage.",
 				{
@@ -1355,6 +1356,7 @@
 			"source": "DMG",
 			"page": 152,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"While wearing this armor, you have resistance to piercing damage.",
 				{
@@ -1379,6 +1381,7 @@
 			"source": "DMG",
 			"page": 152,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"While wearing this armor, you have resistance to slashing damage.",
 				{
@@ -1433,6 +1436,7 @@
 			"source": "DMG",
 			"page": 221,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"Seeing the peril his people faced, a young dwarf prince came to believe that his people needed something to unite them. Thus, he set out to forge a weapon that would be such a symbol.",
 				"Venturing deep under the mountains, deeper than any dwarf had ever delved, the young prince came to the blazing heart of a great volcano. With the aid of Moradin, the dwarven god of creation, he first crafted four great tools: the {@italic Brutal Pick}, the {@italic Earthheart Forge}, the {@italic Anvil of Songs}, and the {@italic Shaping Hammer}. With them, he forged the {@italic Axe of the Dwarvish Lords}.",
@@ -2046,13 +2050,55 @@
 			"reqAttune": "YES",
 			"entries": [
 				"This horned mask of glossy ebony has horns and a skull-like mien. The mask reshapes to fit a wearer attuned to it. While you are wearing the mask and attuned to it, you can access the following properties.",
-				"Damage Absorption. You have damage resistance to acid. If you already have damage resistance to acid from another source, you gain immunity to acid damage. If you already have immunity to acid damage from another source, you regain hit points equal to half of any acid damage you are dealt.",
-				"Draconic Majesty. While you are wearing no armor, you can add your Charisma bonus to your Armor Class.",
-				"Dragon Breath. If you have a breath weapon that requires rest to recharge, it gains a recharge of 6.",
-				"Dragon Sight. You gain darkvision with a radius of 60 feet, or an additional 60 feet of darkvision if you already have that sense. Once per day, you can gain blindsight out to a range of 30 feet for 5 minutes.",
-				"Dragon Tongue. You can speak and understand Draconic. You also have advantage on any Charisma check you make against black dragons.",
-				"Legendary Resistance. (1/Day) If you fail a saving throw, you can choose to succeed instead.",
-				"Water Breathing. You can breathe underwater."
+				{
+					"type": "entries",
+					"name": "Damage Absorption",
+					"entries": [
+						"You have damage resistance to acid. If you already have damage resistance to acid from another source, you gain immunity to acid damage. If you already have immunity to acid damage from another source, you regain hit points equal to half of any acid damage you are dealt."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Draconic Majesty",
+					"entries": [
+						"While you are wearing no armor, you can add your Charisma bonus to your Armor Class."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Breath",
+					"entries": [
+						"If you have a breath weapon that requires rest to recharge, it gains a recharge of 6."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Sight",
+					"entries": [
+						"You gain darkvision with a radius of 60 feet, or an additional 60 feet of darkvision if you already have that sense. Once per day, you can gain blindsight out to a range of 30 feet for 5 minutes."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Tongue",
+					"entries": [
+						"You can speak and understand Draconic. You also have advantage on any Charisma check you make against Black dragons."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Legendary Resistance",
+					"entries": [
+						"(1/Day) If you fail a saving throw, you can choose to succeed instead."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Water Breathing",
+					"entries": [
+						"You can breathe underwater."
+					]
+				}
 			]
 		},
 		{
@@ -2177,13 +2223,55 @@
 			"reqAttune": "YES",
 			"entries": [
 				"This mask of glossy azure has spikes around its edges and a ridged horn in its center. The mask reshapes to fit a wearer attuned to it. While you are wearing the mask and attuned to it, you can access the following properties.",
-				"Damage Absorption. You have resistance against lightning damage. If you already have resistance to lightning damage from another source, you instead have immunity to lightning damage. If you already have immunity to lightning damage from another source, whenever you are subjected to acid damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type.",
-				"Draconic Majesty. While you are wearing no armor, you can add your Charisma bonus to your Armor Class.",
-				"Dragon Breath. If you have a breath weapon that requires rest to recharge, it gains a recharge of 6.",
-				"Dragon Sight. You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes.",
-				"Dragon Tongue. You can speak and understand Draconic. You also have advantage on any Charisma check you make against Blue Dragons.",
-				"Legendary Resistance. (1/Day) If you fail a saving throw, you can choose to succeed instead.",
-				"Lingering Shock. If you deal lightning damage to a creature, it can't take reactions until its next turn."
+				{
+					"type": "entries",
+					"name": "Damage Absorption",
+					"entries": [
+						"You have resistance against lightning damage. If you already have resistance to lightning damage from another source, you instead have immunity to lightning damage. If you already have immunity to lightning damage from another source, whenever you are subjected to lightning damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Draconic Majesty",
+					"entries": [
+						"While you are wearing no armor, you can add your Charisma bonus to your Armor Class."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Breath",
+					"entries": [
+						"If you have a breath weapon that requires rest to recharge, it gains a recharge of 6."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Sight",
+					"entries": [
+						"You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Tongue",
+					"entries": [
+						"You can speak and understand Draconic. You also have advantage on any Charisma check you make against Blue Dragons."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Legendary Resistance",
+					"entries": [
+						"(1/Day) If you fail a saving throw, you can choose to succeed instead."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Lingering Shock",
+					"entries": [
+						"If you deal lightning damage to a creature, it can't take reactions until its next turn."
+					]
+				}
 			]
 		},
 		{
@@ -3804,7 +3892,7 @@
 				{
 					"type": "table",
 					"colLabels": [
-						"Playing Card",
+						"{@dice 1d33|Playing Card}",
 						"Illusion"
 					],
 					"colStyles": [
@@ -3813,135 +3901,333 @@
 					],
 					"rows": [
 						[
-							"Ace of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 1
+								},
+								"entry": "Ace of hearts"
+							},
 							"{@creature adult red dragon|mm|Red dragon}"
 						],
 						[
-							"King of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 2
+								},
+								"entry": "King of hearts"
+							},
 							"{@creature Knight} and four {@creature guard|mm|guards}"
 						],
 						[
-							"Queen of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 3
+								},
+								"entry": "Queen of hearts"
+							},
 							"{@creature Succubus|mm|Succubus/Incubus}"
 						],
 						[
-							"Jack of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 4
+								},
+								"entry": "Jack of hearts"
+							},
 							"{@creature Druid}"
 						],
 						[
-							"Ten of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 5
+								},
+								"entry": "Ten of hearts"
+							},
 							"{@creature Cloud giant}"
 						],
 						[
-							"Nine of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 6
+								},
+								"entry": "Nine of hearts"
+							},
 							"{@creature Ettin}"
 						],
 						[
-							"Eight of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 7
+								},
+								"entry": "Eight of hearts"
+							},
 							"{@creature Bugbear}"
 						],
 						[
-							"Two of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 8
+								},
+								"entry": "Two of hearts"
+							},
 							"{@creature Goblin}"
 						],
 						[
-							"Ace of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 9
+								},
+								"entry": "Ace of diamonds"
+							},
 							"{@creature Beholder}"
 						],
 						[
-							"King of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 10
+								},
+								"entry": "King of diamonds"
+							},
 							"{@creature Archmage} and {@creature mage} apprentice"
 						],
 						[
-							"Queen of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 11
+								},
+								"entry": "Queen of diamonds"
+							},
 							"{@creature Night hag}"
 						],
 						[
-							"Jack of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 12
+								},
+								"entry": "Jack of diamonds"
+							},
 							"{@creature Assassin}"
 						],
 						[
-							"Ten of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 13
+								},
+								"entry": "Ten of diamonds"
+							},
 							"{@creature Fire giant}"
 						],
 						[
-							"Nine of diamonds",
-							"Ogre mage"
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 14
+								},
+								"entry": "Nine of diamonds"
+							},
+							"{@creature Ogre} {@creature mage}"
 						],
 						[
-							"Eight of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 15
+								},
+								"entry": "Eight of diamonds"
+							},
 							"{@creature Gnoll}"
 						],
 						[
-							"Two of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 16
+								},
+								"entry": "Two of diamonds"
+							},
 							"{@creature Kobold}"
 						],
 						[
-							"Ace of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 17
+								},
+								"entry": "Ace of spades"
+							},
 							"{@creature Lich}"
 						],
 						[
-							"King of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 18
+								},
+								"entry": "King of spades"
+							},
 							"{@creature Priest} and two {@creature acolyte|mm|acolytes}"
 						],
 						[
-							"Queen of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 19
+								},
+								"entry": "Queen of spades"
+							},
 							"{@creature Medusa}"
 						],
 						[
-							"Jack of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 20
+								},
+								"entry": "Jack of spades"
+							},
 							"{@creature Veteran}"
 						],
 						[
-							"Ten of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 21
+								},
+								"entry": "Ten of spades"
+							},
 							"{@creature Frost giant}"
 						],
 						[
-							"Nine of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 22
+								},
+								"entry": "Nine of spades"
+							},
 							"{@creature Troll}"
 						],
 						[
-							"Eight of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 23
+								},
+								"entry": "Eight of spades"
+							},
 							"{@creature Hobgoblin}"
 						],
 						[
-							"Two of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 24
+								},
+								"entry": "Two of spades"
+							},
 							"{@creature Goblin}"
 						],
 						[
-							"Ace of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 25
+								},
+								"entry": "Ace of clubs"
+							},
 							"{@creature Iron golem}"
 						],
 						[
-							"King of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 26
+								},
+								"entry": "King of clubs"
+							},
 							"{@creature Bandit captain} and three {@creature bandit|mm|bandits}"
 						],
 						[
-							"Queen of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 27
+								},
+								"entry": "Queen of clubs"
+							},
 							"{@creature Erinyes}"
 						],
 						[
-							"Jack of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 28
+								},
+								"entry": "Jack of clubs"
+							},
 							"{@creature Berserker}"
 						],
 						[
-							"Ten of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 29
+								},
+								"entry": "Ten of clubs"
+							},
 							"{@creature Hill giant}"
 						],
 						[
-							"Nine of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 30
+								},
+								"entry": "Nine of clubs"
+							},
 							"{@creature Ogre}"
 						],
 						[
-							"Eight of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 31
+								},
+								"entry": "Eight of clubs"
+							},
 							"{@creature Orc}"
 						],
 						[
-							"Two of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 32
+								},
+								"entry": "Two of clubs"
+							},
 							"{@creature Kobold}"
 						],
 						[
-							"jokers (2)",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 33
+								},
+								"entry": "jokers (2)"
+							},
 							"You (the deck's owner)"
 						]
 					]
@@ -3970,7 +4256,7 @@
 				{
 					"type": "table",
 					"colLabels": [
-						"Playing Card",
+						"{@dice 1d22|Playing Card}",
 						"Card",
 						"Effect"
 					],
@@ -3981,112 +4267,244 @@
 					],
 					"rows": [
 						[
-							"Ace of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 1
+								},
+								"entry": "Ace of diamonds"
+							},
 							"Vizier*",
 							"At any time you choose within one year of drawing this card, you can ask a question in meditation and mentally receive a truthful answer to that question. Besides information, the answer helps you solve a puzzling problem or other dilemma. In other words, the knowledge comes with wisdom on how to apply it."
 						],
 						[
-							"King of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 2
+								},
+								"entry": "King of diamonds"
+							},
 							"Sun",
 							"You gain 50,000 XP, and a wondrous item (which the DM determines randomly) appears in your hands."
 						],
 						[
-							"Queen&nbsp;of&nbsp;diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 3
+								},
+								"entry": "Queen&nbsp;of&nbsp;diamonds"
+							},
 							"Moon",
 							"You are granted the ability to cast the {@spell wish} spell 1d3 times."
 						],
 						[
-							"Jack of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 4
+								},
+								"entry": "Jack of diamonds"
+							},
 							"Star",
 							"Increase one of your ability scores by 2. The score can exceed 20 but can't exceed 24."
 						],
 						[
-							"Two of diamonds",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 5
+								},
+								"entry": "Two of diamonds"
+							},
 							"Comet*",
 							"If you single-handedly defeat the next hostile monster or group of monsters you encounter, you gain experience points enough to gain one level. Otherwise, this card has no effect."
 						],
 						[
-							"Ace of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 6
+								},
+								"entry": "Ace of hearts"
+							},
 							"The Fates*",
 							"Reality's fabric unravels and spins anew, allowing you to avoid or erase one event as if it never happened. You can use the card's magic as soon as you draw the card or at any other time before you die."
 						],
 						[
-							"King of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 7
+								},
+								"entry": "King of hearts"
+							},
 							"Throne",
 							"You gain proficiency in the Persuasion skill, and you double your proficiency bonus on checks made with that skill. In addition, you gain rightful ownership of a small keep somewhere in the world. However, the keep is currently in the hands of monsters, which you must clear out before you can claim the keep as yours."
 						],
 						[
-							"Queen of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 8
+								},
+								"entry": "Queen of hearts"
+							},
 							"Key",
 							"A rare or rarer magic weapon with which you are proficient appears in your hands. The DM chooses the weapon."
 						],
 						[
-							"Jack of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 9
+								},
+								"entry": "Jack of hearts"
+							},
 							"Knight",
 							"You gain the service of a 4th-level fighter who appears in a space you choose within 30 feet of you. The fighter is of the same race as you and serves you loyally until death, believing the fates have drawn him or her to you. You control this character."
 						],
 						[
-							"Two of hearts",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 10
+								},
+								"entry": "Two of hearts"
+							},
 							"Gem*",
 							"Twenty-five pieces of jewelry worth 2,000 gp each or fifty gems worth 1,000 gp each appear at your feet."
 						],
 						[
-							"Ace of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 11
+								},
+								"entry": "Ace of clubs"
+							},
 							"Talons*",
 							"Every magic item you wear or carry disintegrates. Artifacts in your possession aren't destroyed but do vanish."
 						],
 						[
-							"King of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 12
+								},
+								"entry": "King of clubs"
+							},
 							"The Void",
 							"This black card spells disaster. Your soul is drawn from your body and contained in an object in a place of the DM's choice. One or more powerful beings guard the place. While your soul is trapped in this way, your body is {@condition incapacitated}. A {@spell wish} spell can't restore your soul, but the spell reveals the location of the object that holds it. You draw no more cards."
 						],
 						[
-							"Queen of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 13
+								},
+								"entry": "Queen of clubs"
+							},
 							"Flames",
 							"A powerful devil becomes your enemy. The devil seeks your ruin and plagues your life, savoring your suffering before attempting to slay you. This enmity lasts until either you or the devil dies."
 						],
 						[
-							"Jack of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 14
+								},
+								"entry": "Jack of clubs"
+							},
 							"Skull",
 							"You summon an {@creature avatar of death|dmg}-a ghostly humanoid skeleton clad in a tattered black robe and carrying a spectral scythe. It appears in a space of the DM's choice within 10 feet of you and attacks you, warning all others that you must win the battle alone. The avatar fights until you die or it drops to 0 hit points, whereupon it disappears. If anyone tries to help you, the helper summons its own {@creature avatar of death|dmg}. A creature slain by an {@creature avatar of death|dmg} can't be restored to life."
 						],
 						[
-							"Two of clubs",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 15
+								},
+								"entry": "Two of clubs"
+							},
 							"Idiot*",
 							"Permanently reduce your Intelligence by 1d4+1 (to a minimum score of 1). You can draw one additional card beyond your declared draws."
 						],
 						[
-							"Ace of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 16
+								},
+								"entry": "Ace of spades"
+							},
 							"Donjon*",
 							"You disappear and become entombed in a state of suspended animation in an extradimensional sphere. Everything you were wearing and carrying stays behind in the space you occupied when you disappeared. You remain imprisoned until you are found and removed from the sphere. You can't be located by any {@spell divination} magic, but a {@spell wish} spell can reveal the location of your prison. You draw no more cards."
 						],
 						[
-							"King of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 17
+								},
+								"entry": "King of spades"
+							},
 							"Ruin",
 							"All forms of wealth that you carry or own, other than magic items, are lost to you. Portable property vanishes. Businesses, buildings, and land you own are lost in a way that alters reality the least. Any documentation that proves you should own something lost to this card also disappears."
 						],
 						[
-							"Queen of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 18
+								},
+								"entry": "Queen of spades"
+							},
 							"Euryale",
 							"The card's {@creature medusa}-like visage curses you. You take a -2 penalty on saving throws while cursed in this way. Only a god or the magic of The Fates card can end this curse."
 						],
 						[
-							"Jack of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 19
+								},
+								"entry": "Jack of spades"
+							},
 							"Rogue",
 							"A nonplayer character of the DM's choice becomes hostile toward you. The identity of your new enemy isn't known until the NPC or someone else reveals it. Nothing less than a {@spell wish} spell or divine intervention can end the NPC's hostility toward you."
 						],
 						[
-							"Two of spades",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 20
+								},
+								"entry": "Two of spades"
+							},
 							"Balance*",
 							"Your mind suffers a wrenching alteration, causing your alignment to change. Lawful becomes chaotic, good becomes evil, and vice versa. If you are true neutral or unaligned, this card has no effect on you."
 						],
 						[
-							"Joker (with TM)",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 21
+								},
+								"entry": "Joker (with TM)"
+							},
 							"Fool*",
 							"You lose 10,000 XP, discard this card, and draw from the deck again, counting both draws as one of your declared draws. If losing that much XP would cause you to lose a level, you instead lose an amount that leaves you with just enough XP to keep your level."
 						],
 						[
-							"Joker (without TM)",
+							{
+								"type": "cell",
+								"roll": {
+									"exact": 22
+								},
+								"entry": "Joker (without TM)"
+							},
 							"Jester",
 							"You gain 10,000 XP, or you can draw two additional cards beyond your declared draws."
 						]
@@ -4108,6 +4526,7 @@
 			"source": "DMG",
 			"page": 165,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"While wearing this armor, you gain a +1 bonus to AC, and you can understand and speak Abyssal. In addition, the armor's clawed gauntlets turn unarmed strikes with your hands into magic weapons that deal slashing damage, with a +1 bonus to attack and damage rolls and a damage die of 1d8.",
 				{
@@ -5408,13 +5827,55 @@
 			"reqAttune": "YES",
 			"entries": [
 				"This mottled green mask is surmounted by a frilled crest and has leathery spiked plates along its jaw. The mask reshapes to fit a wearer attuned to it. While you are wearing the mask and attuned to it, you can access the following properties",
-				"Damage Absorption. You have resistance against poison damage. If you already have resistance to poison damage from another source, you instead have immunity to poison damage. If you already have immunity to poison damage from another source, whenever you are subjected to poison damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type.",
-				"Draconic Majesty. While you are wearing no armor, you can add your Charisma bonus to your Armor Class.",
-				"Dragon Breath. If you have a breath weapon that requires rest to recharge, it gains a recharge of 6.",
-				"Dragon Sight. You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes.",
-				"Dragon Tongue. You can speak and understand Draconic. You also have advantage on any Charisma check you make against Green Dragons.",
-				"Legendary Resistance. (1/Day) If you fail a saving throw, you can choose to succeed instead.",
-				"Water Breathing. You can breathe underwater."
+				{
+					"type": "entries",
+					"name": "Damage Absorption",
+					"entries": [
+						"You have resistance against poison damage. If you already have resistance to poison damage from another source, you instead have immunity to poison damage. If you already have immunity to poison damage from another source, whenever you are subjected to poison damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Draconic Majesty",
+					"entries": [
+						"While you are wearing no armor, you can add your Charisma bonus to your Armor Class."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Breath",
+					"entries": [
+						"If you have a breath weapon that requires rest to recharge, it gains a recharge of 6."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Sight",
+					"entries": [
+						"You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Tongue",
+					"entries": [
+						"You can speak and understand Draconic. You also have advantage on any Charisma check you make against Green Dragons."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Legendary Resistance",
+					"entries": [
+						"(1/Day) If you fail a saving throw, you can choose to succeed instead."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Water Breathing",
+					"entries": [
+						"You can breathe underwater."
+					]
+				}
 			]
 		},
 		{
@@ -5475,7 +5936,7 @@
 			"entries": [
 				"In the Year of the Icy Axe (123 DR), the {@creature frost giant} Lord Gurt fell to Uthgar Gardolfsson\u2014leader of the folk who would become the Uthgardt barbarians\u2014in a battle that marked the ascendance of humankind over the giants in the Dessarin Valley. Gurt's greataxe was buried in Morgur's Mound until it was unearthed and brought back to Waterdeep. After laying in the city's vaults for decades, the axe was given to Harshnag, a {@creature frost giant} adventurer, in recognition of his service to Waterdeep. Uthgardt barbarians recognize the weapon on sight and attack any giant that wields it.",
 				"You gain a +1 bonus to attack and damage rolls made with this magic weapon. It is sized for a giant, weighs 325 pounds, and deals 3d12 slashing damage on a hit, plus an extra 2d12 slashing damage if the target is human.",
-				"The axe sheds light as a torch when the temperature around it drops below O degrees Fahrenheit. The light can't he shut off in these conditions.",
+				"The axe sheds light as a torch when the temperature around it drops below 0 degrees Fahrenheit. The light can't be shut off in these conditions.",
 				"As an action, you can cast a version of the heat metal spell (save DC 13) that deals cold damage instead of fire damage. Once this power is used, it can't be used again until the next dawn."
 			]
 		},
@@ -6023,7 +6484,7 @@
 				"Runic Shield. You have a +1 bonus to AC.",
 				"Shield Bond. As a bonus action, choose a creature that you can see within 30 feet of you, other than yourself. Until the end of your next turn, any damage the target takes is reduced to 1, but you take half the damage prevented in this way. The damage you take can't be reduced in any way. Once you use this property, you can't use it again until you finish a short or long rest.",
 				"Shield Ward. You can transfer the ingot's magic to a nonmagical item\u2014a shield or a two-handed melee weapon-by tracing the skold rune there with your finger. The transfer takes 8 hours of work that requires the two items to be within 5 feet of each other. At the end, the ingot is destroyed, and the rune appears in silver on the chosen item, which gains a benefit based on its form:",
-				"Shield. The shield is now a rare magic item that requires attunement. Its magic gives you a +1 bonus to AC, and the first time after each of your long rests that damage reduces you to O hit points, you are instead reduced to 1 hit point. You must be wielding the shield to gain these benefits.",
+				"Shield. The shield is now a rare magic item that requires attunement. Its magic gives you a +1 bonus to AC, and the first time after each of your long rests that damage reduces you to 0 hit points, you are instead reduced to 1 hit point. You must be wielding the shield to gain these benefits.",
 				"Weapon. The weapon is now an uncommon magic weapon. It grants you a +1 bonus to AC while you're holding it."
 			],
 			"rarity": "Very Rare"
@@ -8879,13 +9340,55 @@
 			"reqAttune": "YES",
 			"entries": [
 				"This mask of glossy crimson has swept-back horns and spiked cheek ridges. The mask reshapes to fit a wearer attuned to it. While you are wearing the mask and attuned to it, you can access the following properties.",
-				"Damage Absorption. You have resistance against fire damage. If you already have resistance to fire damage from another source, you instead have immunity to fire damage. If you already have immunity to fire damage from another source, whenever you are subjected to fire damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type.",
-				"Draconic Majesty. While you are wearing no armor, you can add your Charisma bonus to your Armor Class.",
-				"Dragon Breath. If you have a breath weapon that requires rest to recharge, it gains a recharge of 6.",
-				"Dragon Sight. You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes.",
-				"Dragon Tongue. You can speak and understand Draconic. You also have advantage on any Charisma check you make against Red Dragons.",
-				"Legendary Resistance. (1/Day) If you fail a saving throw, you can choose to succeed instead.",
-				"Dragon Fire. If you deal fire damage to a creature or flammable object, it starts burning. At the start of each of its turns, a creature burning in this way takes 1d6 fire damage. A creature that can reach the burning target can use an action to extinguish the fire."
+				{
+					"type": "entries",
+					"name": "Damage Absorption",
+					"entries": [
+						"You have resistance against fire damage. If you already have resistance to fire damage from another source, you instead have immunity to fire damage. If you already have immunity to fire damage from another source, whenever you are subjected to fire damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Draconic Majesty",
+					"entries": [
+						"While you are wearing no armor, you can add your Charisma bonus to your Armor Class."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Breath",
+					"entries": [
+						"If you have a breath weapon that requires rest to recharge, it gains a recharge of 6."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Sight",
+					"entries": [
+						"You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Tongue",
+					"entries": [
+						"You can speak and understand Draconic. You also have advantage on any Charisma check you make against Red Dragons."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Legendary Resistance",
+					"entries": [
+						"(1/Day) If you fail a saving throw, you can choose to succeed instead."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Fire",
+					"entries": [
+						"If you deal fire damage to a creature or flammable object, it starts burning. At the start of each of its turns, a creature burning in this way takes 1d6 fire damage. A creature that can reach the burning target can use an action to extinguish the fire."
+					]
+				}
 			]
 		},
 		{
@@ -10126,6 +10629,7 @@
 			"source": "DMG",
 			"page": 200,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"While holding this shield, you have resistance to damage from ranged weapon attacks.",
 				{
@@ -10905,28 +11409,40 @@
 			"reqAttune": "YES",
 			"entries": [
 				"This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. It also has the following additional properties. When one of these properties is used, it can't be used again until the next dawn.",
-				"Lightning. When you hit with a melee attack using the staff, you can cause the target to take an extra 2d6 lightning damage.",
-				"Thunder. When you hit with a melee attack using the staff, you can cause the staff to emit a crack of thunder, audible out to 300 feet. The target you hit must succeed on a DC 17 Constitution saving throw or become {@condition stunned} until the end of your next turn.",
 				{
-				    "type": "entries",
-				    "name": "Lightning Strike",
-				    "entries": [
+					"type": "entries",
+					"name": "Lightning",
+					"entries": [
+						"When you hit with a melee attack using the staff, you can cause the target to take an extra 2d6 lightning damage."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Thunder",
+					"entries": [
+						"When you hit with a melee attack using the staff, you can cause the staff to emit a crack of thunder, audible out to 300 feet. The target you hit must succeed on a DC 17 Constitution saving throw or become {@condition stunned} until the end of your next turn."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Lightning Strike",
+					"entries": [
 						"You can use an action to cause a bolt of lightning to leap from the staff's tip in a line that is 5 feet wide and 120 feet long. Each creature in that line must make a DC 17 Dexterity saving throw, taking 9d6 lightning damage on a failed save, or half as much damage on a successful one."
-				    ]
+					]
 				},
 				{
-				    "type": "entries",
-				    "name": "Thunderclap",
-				    "entries": [
+					"type": "entries",
+					"name": "Thunderclap",
+					"entries": [
 						"You can use an action to cause the staff to issue a deafening thunderclap, audible out to 600 feet. Each creature within 60 feet of you (not including you) must make a DC 17 Constitution saving throw. On a failed save, a creature takes 2d6 thunder damage and becomes {@condition deafened} for 1 minute. On a successful save, a creature takes half damage and isn't {@condition deafened}."
-				    ]
+					]
 				},
 				{
-				    "type": "entries",
-				    "name": "Thunder and Lightning",
-				    "entries": [
+					"type": "entries",
+					"name": "Thunder and Lightning",
+					"entries": [
 						"You can use an action to use the Lightning Strike and Thunderclap properties at the same time. Doing so doesn't expend the daily use of those properties, only the use of this one."
-				    ]
+					]
 				}
 			]
 		},
@@ -11031,7 +11547,7 @@
 				"This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. While holding it, you have a +2 bonus to spell attack rolls.",
 				"The staff has 10 charges for the following properties. It regains 1d6+4 expended charges daily at dawn. If you expend the last charge, roll a d20. On a 1, the staff loses its properties and becomes a nonmagical quarterstaff.",
 				{
-				    "type": "entries",
+					"type": "entries",
 					"name": "Spells",
 					"entries": [
 						"You can use an action to expend 1 or more of the staff's charges to cast one of the following spells from it, using your spell save DC: {@spell animal friendship} (1 charge), {@spell awaken} (5 charges), {@spell barkskin} (2 charges), {@spell locate animals or plants} (2 charges), {@spell speak with animals} (1 charge), {@spell speak with plants} (3 charges), or {@spell wall of thorns} (6 charges).",
@@ -11039,7 +11555,7 @@
 					]
 				},
 				{
-				    "type": "entries",
+					"type": "entries",
 					"name": "Tree Form",
 					"entries": [
 						"You can use an action to plant one end of the staff in fertile earth and expend 1 charge to transform the staff into a healthy tree. The tree is 60 feet tall and has a 5-foot-diameter trunk, and its branches at the top spread out in a 20-foot radius. The tree appears ordinary but radiates a faint aura of transmutation magic if targeted by {@spell detect magic}. While touching the tree and using another action to speak its command word, you return the staff to its normal form. Any creature in the tree falls when it reverts to a staff."
@@ -13341,13 +13857,55 @@
 			"reqAttune": "YES",
 			"entries": [
 				"This gleaming mask is white with highlights of pale blue and is topped by a spined crest. The mask reshapes to fit a wearer attuned to it. While you are wearing the mask and attuned to it, you can access the following properties.",
-				"Damage Absorption. You have resistance against cold damage. If you already have resistance to cold damage from another source, you instead have immunity to cold damage. If you already have immunity to cold damage from another source, whenever you are subjected to cold damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type.",
-				"Draconic Majesty. While you are wearing no armor, you can add your Charisma bonus to your Armor Class.",
-				"Dragon Breath. If you have a breath weapon that requires rest to recharge, it gains a recharge of 6.",
-				"Dragon Sight. You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes.",
-				"Dragon Tongue. You can speak and understand Draconic. You also have advantage on any Charisma check you make against White Dragons.",
-				"Legendary Resistance. (1/Day) If you fail a saving throw, you can choose to succeed instead.",
-				"Winter's Fury. While your current hit points are equal to or less than half your hit point maximum, you deal an extra 1d8 cold damage with your melee attacks."
+				{
+					"type": "entries",
+					"name": "Damage Absorption",
+					"entries": [
+						"You have resistance against cold damage. If you already have resistance to cold damage from another source, you instead have immunity to cold damage. If you already have immunity to cold damage from another source, whenever you are subjected to cold damage, you take none of that damage and regain a number of hit points equal to half the damage dealt of that type."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Draconic Majesty",
+					"entries": [
+						"While you are wearing no armor, you can add your Charisma bonus to your Armor Class."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Breath",
+					"entries": [
+						"If you have a breath weapon that requires rest to recharge, it gains a recharge of 6."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Sight",
+					"entries": [
+						"You gain darkvision out to 60 feet, or to an additional 60 feet if you already have that sense. Once per day, you can gain blindsight out to 30 feet for 5 minutes."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Dragon Tongue",
+					"entries": [
+						"You can speak and understand Draconic. You also have advantage on any Charisma check you make against White Dragons."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Legendary Resistance",
+					"entries": [
+						"(1/Day) If you fail a saving throw, you can choose to succeed instead."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Winter's Fury",
+					"entries": [
+						"While your current hit points are equal to or less than half your hit point maximum, you deal an extra 1d8 cold damage with your melee attacks."
+					]
+				}
 			]
 		},
 		{
@@ -14246,6 +14804,7 @@
 			"source": "TftYP",
 			"page": 228,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"While you wear this gold bracelet, it grants you immunity to being {@condition petrified}, and it allows you to cast {@spell flesh to stone} (save DC 15) as an action. Once the spell has been cast three times, the bracelet can no longer cast it. Thereafter, you can cast {@spell stone shape} as an action. After you have done this thirteen times, the bracelet loses its magic and turns from gold to lead.",
 				{
@@ -14276,6 +14835,7 @@
 			"source": "TftYP",
 			"page": 228,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"This dark cloak is made of cured {@creature hell hound} hide. As an action, you can command the cloak to transform you into a {@creature hell hound} for up to 1 hour. The transformation otherwise functions as the {@spell polymorph} spell, but you can use a bonus action to revert to your normal form.",
 				{
@@ -14295,6 +14855,7 @@
 			"rarity": "Rare",
 			"source": "TftYP",
 			"page": 228,
+			"curse": true,
 			"entries": [
 				"This stone is a large gem worth 150 gp.",
 				{
@@ -14414,8 +14975,9 @@
 			"source": "TftYP",
 			"page": 229,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
-				"You gain a +2 bonus to attack and damage rolls made with this magic weapon. When you throw it, its normal and long ranges both increase by 30 feet. and it deals one extra die of damage on a hit. After you throw it and it hits or misses, it flies back co your hand immediately.",
+				"You gain a +2 bonus to attack and damage rolls made with this magic weapon. When you throw it, its normal and long ranges both increase by 30 feet. and it deals one extra die of damage on a hit. After you throw it and it hits or misses, it flies back to your hand immediately.",
 				{
 					"type": "entries",
 					"name": "Curse",
@@ -14441,8 +15003,9 @@
 			"source": "TftYP",
 			"page": 229,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
-				"You gain a +2 bonus to attack and damage rolls made with this magic weapon. When you throw it, its normal and long ranges both increase by 30 feet. and it deals one extra die of damage on a hit. After you throw it and it hits or misses, it flies back co your hand immediately.",
+				"You gain a +2 bonus to attack and damage rolls made with this magic weapon. When you throw it, its normal and long ranges both increase by 30 feet. and it deals one extra die of damage on a hit. After you throw it and it hits or misses, it flies back to your hand immediately.",
 				{
 					"type": "entries",
 					"name": "Curse",
@@ -14461,6 +15024,7 @@
 			"source": "TftYP",
 			"page": 229,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"This polished agate appears to be a {@item stone of good luck} to anyone who tries to {@spell identify} it, and it confers that item's property while on your person.",
 				{
@@ -14896,6 +15460,7 @@
 			"source": "ToA",
 			"page": 208,
 			"reqAttune": "YES",
+			"curse": true,
 			"entries": [
 				"This suit of plate armor is fashioned from {@creature giant scorpion} chitin. While wearing this armor, you gain the following benefits:",
 				{
@@ -15696,6 +16261,65 @@
 				"A narzugon binds a nightmare to its service with infernal tack, which consists of a bridle, bit, reins, saddle, stirrups, and spurs. A {@creature nightmare} equipped with infernal tack must serve whoever wears the spurs until the wearer dies or the tack is removed.",
 				"You can use an action to call a creature nightmare equipped with infernal tack by clashing the spurs together or scraping them through blood. The nightmare appears at the start of your next turn, within 20 feet of you. It acts as your ally and takes its turn on your initiative count. It remains for 1 day, until you or it dies, or until you dismiss it as an action. If the nightmare dies, it reforms in the Nine Hells within 24 hours, after which you can summon it again.",
 				"The tack doesn't conjure a nightmare from thin air; one must first be subdued so the tack can be placed on it. No nightmare accepts this forced servitude willingly, but some eventually form strong loyalties to their masters and become true partners in evil."
+			]
+		}
+	],
+	"itemGroup": [
+		{
+			"name": "Arcane Focus",
+			"type": "SCF",
+			"scfType": "arcane",
+			"rarity": "None",
+			"source": "PHB",
+			"page": 151,
+			"entries": [
+				{
+					"type": "list",
+					"items": [
+						"{@item Crystal|phb}",
+						"{@item Orb|phb}",
+						"{@item Rod|phb}",
+						"{@item Staff|phb}",
+						"{@item Wand|phb}"
+					]
+				}
+			]
+		},
+		{
+			"name": "Druidic Focus",
+			"type": "SCF",
+			"scfType": "arcane",
+			"rarity": "None",
+			"source": "PHB",
+			"page": 151,
+			"entries": [
+				{
+					"type": "list",
+					"items": [
+						"{@item Sprig of mistletoe|phb}",
+						"{@item Totem|phb}",
+						"{@item Wooden staff|phb}",
+						"{@item Yew wand|phb}"
+					]
+				}
+			]
+		},
+		{
+			"name": "Holy Symbol",
+			"type": "SCF",
+			"scfType": "holy",
+			"rarity": "None",
+			"source": "PHB",
+			"page": 151,
+			"entries": [
+				{
+					"type": "list",
+					"items": [
+						"{@item Amulet|phb}",
+						"{@item Emblem|phb}",
+						"{@item Reliquary|phb}"
+					]
+				}
 			]
 		}
 	]

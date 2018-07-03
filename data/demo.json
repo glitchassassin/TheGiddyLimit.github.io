@@ -20,7 +20,7 @@
 				{
 					"type": "list",
 					"items": [
-						"Style tags; {@bold some text to be bolded} (alternative {@b shorthand}), {@italic some text to be italicised} (alternative {@i shorthand})",
+						"Style tags; {@bold some text to be bolded} (alternative {@b shorthand}), {@italic some text to be italicised} (alternative {@i shorthand}), {@strike some text to strike-through}, (alternative {@s shorthand})",
 						"Additionally, {@note note tags}, used for adding errata or Twitter \"designer footnotes.\"",
 						"Dice roller tags; {@dice 1d2-2+2d3+5} for regular dice rolls, with extended {@dice 1d20+2|display text} and {@dice 1d20+2|display text|rolled by name}, and a special 'hit' version which assumes a d20 is to be rolled {@hit +7}.",
 						"Chance tags; similar to dice roller tags, but output success/failure. Similar syntax as dice tags: {@chance 50}, {@chance 50|display text}, and {@chance 50|display text|rolled by name}.",
@@ -37,13 +37,19 @@
 								"Invocations: {@invocation Agonizing Blast} assumes PHB by default, {@invocation Aspect of the Moon|xge} can have sources added with a pipe, {@invocation Aspect of the Moon|xge|and optional link text added with another pipe}.",
 								"Classes: {@class fighter} assumes PHB by default, {@class artificer|uaartificer} can have sources added with a pipe, {@class fighter|phb|optional link text added with another pipe}, {@class fighter|phb|subclasses added|Eldritch Knight} with another pipe, {@class fighter|phb|and class feature added|Eldritch Knight|phb|Martial Archetype 3} with another pipe (number denotes level, since names can be duplicate).",
 								"Conditions: {@condition stunned} assumes PHB by default, {@condition stunned|phb} can have sources added with a pipe (not that it's ever useful), {@condition stunned|phb|and optional link text added with another pipe}.",
+								"Diseases: {@disease cackle fever} assumes DMG by default, {@disease cackle fever|dmg} can have sources added with a pipe, {@disease cackle fever|dmg|and optional link text added with another pipe}.",
 								"Other Rewards: {@reward Blessing of Health} assumes DMG by default, {@reward Blessing of Health|dmg} can have sources added with a pipe, {@reward Blessing of Health|dmg|and optional link text added with another pipe}.",
 								"Feats: {@feat Alert} assumes PHB by default, {@feat Elven Accuracy|xge} can have sources added with a pipe, {@feat Elven Accuracy|xge|and optional link text added with another pipe}.",
-								"Psionics: {@psionic Mastery of Force} assumes UATheMysticClass by default, {@psionic Mastery of Force|UATheMysticClass} can have sources added with a pipe, {@psionic Mastery of Force|UATheMysticClass|and optional link text added with another pipe}."
+								"Psionics: {@psionic Mastery of Force} assumes UATheMysticClass by default, {@psionic Mastery of Force|UATheMysticClass} can have sources added with a pipe, {@psionic Mastery of Force|UATheMysticClass|and optional link text added with another pipe}.",
+								"Objects: {@object Ballista} assumes DMG by default, {@object Ballista|DMG} can have sources added with a pipe, {@object Ballista|DMG|and optional link text added with another pipe}.",
+								"Boons: {@boon Demogorgon} assumes MTF by default, {@boon Demogorgon|MTF} can have sources added with a pipe, {@boon Demogorgon|MTF|and optional link text added with another pipe}.",
+								"Cults: {@cult Cult of Asmodeus} assumes MTF by default, {@cult Cult of Asmodeus|MTF} can have sources added with a pipe, {@cult Cult of Asmodeus|MTF|and optional link text added with another pipe}.",
+								"Traps: {@trap falling net} assumes DMG by default, {@trap falling portcullis|xge} can have sources added with a pipe, {@trap falling portcullis|xge|and optional link text added with another pipe}.",
+								"Hazards: {@hazard brown mold} assumes DMG by default, {@hazard russet mold|vgm} can have sources added with a pipe, {@hazard russet mold|vgm|and optional link text added with another pipe}."
 							]
 						},
 						{
-						    "type": "inset",
+							"type": "inset",
 							"name": "Filter Tag",
 							"entries": [
 								"Another tag that appears occasionally in the data is the @filter tag. This tag can be tricky to use, and generally relies on knowledge of the internals of each page. As such, use with caution, and if you're not sure about something, don't be afraid to drop by our {@link Discord|https://discord.gg/v3AXzcW} and ask questions.",
@@ -55,15 +61,16 @@
 								"{@filter Races that have a bonus to Intelligence|races|Ability Bonus (Including Subrace)=Intelligence +2;Intelligence +1}",
 								"{@filter Bard cantrips and first-level spells|spells|level=0;1|class=bard}",
 								"{@filter Beast with challenge rating 1 or lower|bestiary|cr=0;1/8;1/4;1/2;1|type=beast}",
+								"{@filter Creatures with a Strength score of 18 or more|bestiary|strength=min18}",
 								"{@filter Divination and Evocation spells|spells|school=D;V}",
 								"{@filter All uncommon magic items|items|source=null|type=null|tier=null|rarity=uncommon|property=null|attunement=null|category=null|miscellaneous=Magic}",
 								{
-								    "type": "entries",
-								    "name": "Note",
-								    "entries": [
-										"Setting a filter to null, i.e. ...|school=null|... is equivalent to 'clear the  filter,' resetting it to all-white.",
+									"type": "entries",
+									"name": "Note",
+									"entries": [
+										"Setting a filter to null, i.e. ...|school=null|... is equivalent to 'clear the filter,' resetting it to all-white.",
 										"The pages that support this functionality are those with the 'magnet' button; the link this button exports will give clues as to what one could do with the filter tag."
-								    ]
+									]
 								}
 							]
 						}
@@ -174,7 +181,7 @@
 					"rows": [
 						[
 							"This is a table row",
-							"The number of entries should match the number of columns, naturally"
+							"The number of entries should match the number of columns, naturally*"
 						],
 						[
 							"The 'colStyles' list is literally used as CSS classes",
@@ -198,6 +205,9 @@
 								"As objects with additional properties"
 							]
 						}
+					],
+					"footnotes": [
+						"* Optional footer entries"
 					]
 				},
 				"Rollable tables can be made like so (note the 'pad' to format single digit numbers e.g. '01' for tables with >10 rows):",
@@ -275,6 +285,15 @@
 						}
 					]
 				},
+				"There's also:",
+				{
+					"type": "list",
+					"style": "list-no-bullets",
+					"items": [
+						"A list of items without bullets",
+						"Used very rarely"
+					]
+				},
 				{
 					"type": "list",
 					"style": "list-hang",
@@ -306,7 +325,23 @@
 							"name": "A similar story here",
 							"entry": "The 'item' is an entry as above, but there's no 'name' for the entire list, so this has no left inset. Some long text to show what happens when the lines wrap around, it should continue but be indented after the first line. Some example of this in the source books can be found in Metalic Dragon breath weapons in the Monster Manual."
 						},
-						"Can be mixed with regular strings"
+						{
+							"type": "itemSub",
+							"name": "A sub-item used in some places.",
+							"entry": "For example, XGE's complex traps"
+						},
+
+						{
+							"type": "item",
+							"name": "Multiple entry version.",
+							"entries": [
+								"This was, again, required specifically for XGE's complex traps, which can have multiple lines of text; due to their large and complex nature, one would have to presume.",
+								"Speaking of lines, this one is very long (much like the one above, which was specifically packed with superfluous information to pad it out to a decent word count) to hopefully demonstrate the effects of having to wrap a paragraph into the column, which should indent the first line of the paragraph only. Of course, if you're viewing this on an obscenely wide monitor, this will have little or no effect, so if you're in the future where 10k monitors are standard, then congratulations. Otherwise, like the rest of us plebs, you should see the desired layout.",
+								"For most uses, the single-entry version is preferred.",
+								"And here's another really long run-on sentence, just to really hammer home the effects of {@s drugs} excessive text, something I'm sure my English teacher would have a few comments about; thankfully, they're not much of a fan of Dungeons & Dragons, or even fantasy in general (needless to say, they were at best ambivalent towards the vast majority of my literary interests as a teenager; at least, as much as an English teacher can be towards a student who enjoys reading and who would choose to do it of their own volition).",
+								"What on earth did I just write"
+							]
+						}
 					]
 				},
 				"The 'bonus' type just sticks a + in front of things",
@@ -462,7 +497,9 @@
 							"L",
 							"G"
 						],
-						"ac": "12",
+						"ac": [
+							12
+						],
 						"hp": {
 							"average": 67,
 							"formula": "9d10+18"

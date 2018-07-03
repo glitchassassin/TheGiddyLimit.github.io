@@ -3,40 +3,30 @@
 	"version": "1.0.0",
 	"type": "object",
 	"properties": {
-		"condition": {
+		"background": {
 			"type": "array",
-			"uniqueItems": true,
 			"items": {
 				"type": "object",
 				"properties": {
 					"name": {
 						"type": "string"
 					},
-					"entries": {
-						"type": "array",
-						"items": {
-							"$ref": "/Entry"
-						}
-					},
 					"source": {
 						"type": "string"
 					},
-					"page": {
-						"type": "integer"
+					"entries": {
+						"entries": {
+							"type": "array",
+							"items": {
+								"$ref": "/Entry"
+							}
+						}
 					}
 				},
-				"required": [
-					"name",
-					"entries",
-					"source",
-					"page"
-				],
+				"required": ["name", "source"],
 				"additionalProperties": false
 			}
 		}
 	},
-	"required": [
-		"condition"
-	],
 	"additionalProperties": false
 }

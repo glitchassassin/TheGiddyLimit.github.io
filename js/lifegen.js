@@ -479,7 +479,7 @@ const SUPP_STATUS = [
 ];
 
 window.onload = function load () {
-	DataUtil.loadJSON(JSON_URL, onJsonLoad);
+	DataUtil.loadJSON(JSON_URL).then(onJsonLoad);
 };
 
 let classList;
@@ -641,7 +641,7 @@ function sectFamily () {
 	$family.empty();
 	$family.append(`<b>Family:</b> ${_getFromTable(FAMILY, RNG(100)).result}<br>`);
 	let famIndex = 1;
-	const $btnSuppFam = $(`<button class="btn btn-xs btn-default btn-supp-fam"></button>`).on("click", () => {
+	const $btnSuppFam = $(`<button class="btn btn-xs btn-default btn-supp-fam noprint"></button>`).on("click", () => {
 		const supDetails = getPersonDetails();
 		const $wrpRes = $(`<div class="output-wrp-border"/>`);
 		$wrpRes.append(`<h5>Family Member Roll ${famIndex++}</h5>`);
@@ -684,7 +684,8 @@ function sectClassTraining () {
 function sectLifeEvents () {
 	const $events = $(`#events`).empty();
 	marriageIndex = 0;
-	const age = _getFromTable(LIFE_EVENTS_AGE, RNG(100));
+	const $selAge = $(`#age`);
+	const age = _getFromTable(LIFE_EVENTS_AGE, Number($selAge.val()) || RNG(100));
 	$events.append(`<b>Current age:</b> ${age.result} ${fmtChoice(`${age.age} year${age.age > 1 ? "s" : ""} old`)}`);
 	for (let i = 0; i < age.events; ++i) {
 		$events.append(`<h5>Life Event ${i + 1}</h5>`);
@@ -717,3 +718,13 @@ function roll () {
 	sectClassTraining();
 	sectLifeEvents();
 }
+
+window.addEventListener("load", () => {
+	$(`#age`).on("change", function () {
+		if ($(this).val()) {
+			$(this).addClass("italic")
+		} else {
+			$(this).removeClass("italic")
+		}
+	});
+});

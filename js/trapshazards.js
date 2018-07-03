@@ -4,9 +4,11 @@ const JSON_URL = "data/trapshazards.json";
 
 window.onload = function load () {
 	ExcludeUtil.initialise();
-	DataUtil.loadJSON(JSON_URL, onJsonLoad);
+	DataUtil.loadJSON(JSON_URL).then(onJsonLoad);
 };
 
+const sourceFilter = getSourceFilter();
+let filterBox;
 let list;
 function onJsonLoad (data) {
 	list = ListUtil.search({
@@ -14,6 +16,32 @@ function onJsonLoad (data) {
 		listClass: "trapshazards",
 		sortFunction: SortUtil.listSort
 	});
+
+	const typeFilter = new Filter({
+		header: "Type",
+		items: [
+			"MECH",
+			"MAG",
+			"SMPL",
+			"CMPX",
+			"HAZ"
+		],
+		displayFn: Parser.trapTypeToFull
+	});
+	filterBox = initFilterBox(
+		sourceFilter,
+		typeFilter
+	);
+
+	list.on("updated", () => {
+		filterBox.setCount(list.visibleItems.length, list.items.length);
+	});
+
+	// filtering function
+	$(filterBox).on(
+		FilterBox.EVNT_VALCHANGE,
+		handleFilterChange
+	);
 
 	const subList = ListUtil.initSublist({
 		valueNames: ["name", "type", "id"],
@@ -23,11 +51,19 @@ function onJsonLoad (data) {
 	ListUtil.initGenericPinnable();
 
 	addTrapsHazards(data);
-	BrewUtil.addBrewData(addTrapsHazards);
+	BrewUtil.addBrewData(handleBrew);
 	BrewUtil.makeBrewButton("manage-brew");
-	BrewUtil.bind({list});
+	BrewUtil.bind({list, filterBox, sourceFilter});
+	ListUtil.loadState();
 
 	History.init();
+	handleFilterChange();
+	RollerUtil.addListRollButton();
+}
+
+function handleBrew (homebrew) {
+	addTrapsHazards({trap: homebrew.trap});
+	addTrapsHazards({hazard: homebrew.hazard});
 }
 
 let trapsAndHazardsList = [];
@@ -57,13 +93,21 @@ function addTrapsHazards (data) {
 				</a>
 			</li>
 		`;
+
+		// populate filters
+		sourceFilter.addIfAbsent(it.source);
 	}
 	const lastSearch = ListUtil.getSearchTermAndReset(list);
 	$(`#trapsHazardsList`).append(tempString);
 
+	// sort filters
+	sourceFilter.items.sort(SortUtil.ascSort);
+
 	list.reIndex();
 	if (lastSearch) list.search(lastSearch);
 	list.sort("name");
+	filterBox.render();
+	handleFilterChange();
 
 	ListUtil.setOptions({
 		itemList: trapsAndHazardsList,
@@ -72,7 +116,23 @@ function addTrapsHazards (data) {
 	});
 	ListUtil.bindPinButton();
 	EntryRenderer.hover.bindPopoutButton(trapsAndHazardsList);
-	ListUtil.loadState();
+	UrlUtil.bindLinkExportButton(filterBox);
+	ListUtil.bindDownloadButton();
+	ListUtil.bindUploadButton();
+}
+
+// filtering function
+function handleFilterChange () {
+	const f = filterBox.getValues();
+	list.filter(function (item) {
+		const it = trapsAndHazardsList[$(item.elm).attr(FLTR_ID)];
+		return filterBox.toDisplay(
+			f,
+			it.source,
+			it.trapType
+		);
+	});
+	FilterBox.nextIfHidden(trapsAndHazardsList);
 }
 
 function getSublistItem (it, pinId) {
@@ -96,12 +156,14 @@ function loadhash (jsonIndex) {
 
 	renderer.recursiveEntryRender({entries: it.entries}, renderStack, 2);
 
+	const simplePart = EntryRenderer.traphazard.getSimplePart(renderer, it);
+	const complexPart = EntryRenderer.traphazard.getComplexPart(renderer, it);
 	const $content = $(`#pagecontent`).empty();
 	$content.append(`
 		${EntryRenderer.utils.getBorderTr()}
 		${EntryRenderer.utils.getNameTr(it)}
-		<tr class="text"><td colspan="6"><i>${Parser.trapTypeToFull(it.trapType)}</i></td>
-		<tr class="text"><td colspan="6">${renderStack.join("")}</td></tr>
+		<tr class="text"><td colspan="6"><i>${EntryRenderer.traphazard.getSubtitle(it)}</i></td>
+		<tr class="text"><td colspan="6">${renderStack.join("")}${simplePart || ""}${complexPart || ""}</td></tr>
 		${EntryRenderer.utils.getPageTr(it)}
 		${EntryRenderer.utils.getBorderTr()}
 	`);

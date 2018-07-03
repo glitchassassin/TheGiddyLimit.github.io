@@ -272,12 +272,20 @@ function EntryRenderer () {
 				// list items
 				case "item":
 					renderPrefix();
-					this.recursiveEntryRender(entry.entry, textStack, depth, {prefix: `<p><span class="bold">${entry.name}</span> `, suffix: "</p>"});
+					textStack.push(`<p><span class="bold list-item-title">${entry.name}</span> `);
+					if (entry.entry) this.recursiveEntryRender(entry.entry, textStack, depth, {prefix: "", suffix: ""});
+					else if (entry.entries) entry.entries.forEach((nxt, i) => this.recursiveEntryRender(nxt, textStack, depth, {prefix: i > 0 ? `<span class="para-continue-indented">` : "", suffix: i > 0 ? "</span>" : ""}));
+					textStack.push("</p>");
+					renderSuffix();
+					break;
+				case "itemSub":
+					renderPrefix();
+					this.recursiveEntryRender(entry.entry, textStack, depth, {prefix: `<p><span class="italic list-item-title">${entry.name}</span> `, suffix: "</p>"});
 					renderSuffix();
 					break;
 				case "itemSpell":
 					renderPrefix();
-					this.recursiveEntryRender(entry.entry, textStack, depth, {prefix: `<p>${entry.name}</span> `, suffix: "</p>"});
+					this.recursiveEntryRender(entry.entry, textStack, depth, {prefix: `<p>${entry.name} `, suffix: "</p>"});
 					renderSuffix();
 					break;
 
@@ -355,7 +363,7 @@ function EntryRenderer () {
 
 			let autoMkRoller = false;
 			if (entry.colLabels) {
-				autoMkRoller = entry.colLabels.length === 2 && RollerUtil.isRollCol(entry.colLabels[0]);
+				autoMkRoller = entry.colLabels.length >= 2 && RollerUtil.isRollCol(entry.colLabels[0]);
 				if (autoMkRoller) {
 					// scan the first column to ensure all rollable
 					const notRollable = entry.rows.find(it => {
@@ -549,7 +557,7 @@ function EntryRenderer () {
 
 		function _getStyleClass (source) {
 			const outList = [];
-			if (isNonstandardSource(source)) outList.push(CLSS_NON_STANDARD_SOURCE);
+			if (SourceUtil.isNonstandardSource(source)) outList.push(CLSS_NON_STANDARD_SOURCE);
 			if (BrewUtil.hasSourceJson(source)) outList.push(CLSS_HOMEBREW_SOURCE);
 			return outList.join(" ");
 		}
@@ -562,7 +570,7 @@ function EntryRenderer () {
 				if (s.charAt(0) === "@") {
 					const [tag, text] = EntryRenderer.splitFirstSpace(s);
 
-					if (tag === "@bold" || tag === "@b" || tag === "@italic" || tag === "@i" || tag === "@note" || tag === "@skill" || tag === "@action") {
+					if (tag === "@bold" || tag === "@b" || tag === "@italic" || tag === "@i" || tag === "@strike" || tag === "@s" || tag === "@note" || tag === "@skill" || tag === "@action") {
 						switch (tag) {
 							case "@b":
 							case "@bold":
@@ -575,6 +583,12 @@ function EntryRenderer () {
 								textStack.push(`<i>`);
 								self.recursiveEntryRender(text, textStack, depth);
 								textStack.push(`</i>`);
+								break;
+							case "@s":
+							case "@strike":
+								textStack.push(`<s>`);
+								self.recursiveEntryRender(text, textStack, depth);
+								textStack.push(`</s>`);
 								break;
 							case "@note":
 								textStack.push(`<i class="text-muted">`);
@@ -600,21 +614,22 @@ function EntryRenderer () {
 						switch (tag) {
 							case "@dice": {
 								// format: {@dice 1d2+3+4d5-6} // TODO do we need to handle e.g. 4d6+1-1d4+2 (negative dice exp)?
-								const spl = rollText.toLowerCase().replace(/\s/g, "").split(/[+-]/g).map(s => s.trim());
+								const spl = rollText.toLowerCase().replace(/\s/g, "").replace(/-/g, "-NEG").split(/[+-]/g).map(s => s.trim());
 								// recombine modifiers
 								const toRoll = [];
 								for (let i = 0; i < spl.length; ++i) {
 									const it = spl[i];
 									if (it.includes("d")) {
-										const m = /^(\d+)?d(\d+)$/.exec(it);
+										const m = /^(NEG)?(\d+)?d(\d+)$/.exec(it);
 										toRoll.push({
-											number: Number(m[1]) || 1,
-											faces: Number(m[2]),
+											number: Number(m[2]) || 1,
+											faces: Number(m[3]),
 											modifier: 0,
 											hideModifier: true
 										});
 									} else {
-										toRoll[toRoll.length - 1].modifier += Number(it);
+										let neg = it.includes("NEG");
+										toRoll[toRoll.length - 1].modifier += ((neg * -1) || 1) * Number(it.replace(/NEG/g, ""));
 										toRoll[toRoll.length - 1].hideModifier = false;
 									}
 								}
@@ -681,6 +696,21 @@ function EntryRenderer () {
 							text: displayText
 						};
 						self.recursiveEntryRender(fauxEntry, textStack, depth);
+					} else if (tag === "@5etools") {
+						const [displayText, page, hash] = text.split("|");
+						const fauxEntry = {
+							type: "link",
+							href: {
+								type: "internal",
+								path: page
+							},
+							text: displayText
+						};
+						if (hash) {
+							fauxEntry.hash = hash;
+							fauxEntry.hashPreEncoded = true;
+						}
+						self.recursiveEntryRender(fauxEntry, textStack, depth);
 					} else if (tag === "@book") {
 						// format: {@book Display Text|DMG< |chapter< |section > >}
 						const [displayText, book, chapter, section] = text.split("|");
@@ -730,7 +760,10 @@ function EntryRenderer () {
 							case "@class": {
 								if (others.length) {
 									const scSource = others.length > 1 ? `~${others[1].trim()}` : "~phb";
-									fauxEntry.href.subhashes = [{"key": "sub", "value": others[0].trim() + scSource}];
+									fauxEntry.href.subhashes = [
+										{key: "sub", value: others[0].trim() + scSource},
+										{key: "sources", value: 2}
+									];
 									if (others.length > 2) {
 										fauxEntry.href.subhashes.push({key: "f", value: others[2].trim()})
 									}
@@ -750,11 +783,20 @@ function EntryRenderer () {
 								self.recursiveEntryRender(fauxEntry, textStack, depth);
 								break;
 							case "@condition":
-								fauxEntry.href.path = "conditions.html";
+								fauxEntry.href.path = "conditionsdiseases.html";
 								if (!source) fauxEntry.href.hash += HASH_LIST_SEP + SRC_PHB;
 								fauxEntry.href.hover = {
-									page: UrlUtil.PG_CONDITIONS,
+									page: UrlUtil.PG_CONDITIONS_DISEASES,
 									source: source || SRC_PHB
+								};
+								self.recursiveEntryRender(fauxEntry, textStack, depth);
+								break;
+							case "@disease":
+								fauxEntry.href.path = "conditionsdiseases.html";
+								if (!source) fauxEntry.href.hash += HASH_LIST_SEP + SRC_DMG;
+								fauxEntry.href.hover = {
+									page: UrlUtil.PG_CONDITIONS_DISEASES,
+									source: source || SRC_DMG
 								};
 								self.recursiveEntryRender(fauxEntry, textStack, depth);
 								break;
@@ -812,6 +854,44 @@ function EntryRenderer () {
 								};
 								self.recursiveEntryRender(fauxEntry, textStack, depth);
 								break;
+							case "@object":
+								fauxEntry.href.path = "objects.html";
+								if (!source) fauxEntry.href.hash += HASH_LIST_SEP + SRC_DMG;
+								fauxEntry.href.hover = {
+									page: UrlUtil.PG_OBJECTS,
+									source: source || SRC_DMG
+								};
+								self.recursiveEntryRender(fauxEntry, textStack, depth);
+								break;
+							case "@boon":
+							case "@cult":
+								fauxEntry.href.path = "cultsboons.html";
+								if (!source) fauxEntry.href.hash += HASH_LIST_SEP + SRC_MTF;
+								fauxEntry.href.hover = {
+									page: UrlUtil.PG_CULTS_BOONS,
+									source: source || SRC_MTF
+								};
+								self.recursiveEntryRender(fauxEntry, textStack, depth);
+								break;
+							case "@trap":
+							case "@hazard":
+								fauxEntry.href.path = "trapshazards.html";
+								if (!source) fauxEntry.href.hash += HASH_LIST_SEP + SRC_DMG;
+								fauxEntry.href.hover = {
+									page: UrlUtil.PG_TRAPS_HAZARDS,
+									source: source || SRC_DMG
+								};
+								self.recursiveEntryRender(fauxEntry, textStack, depth);
+								break;
+							case "@variantrule":
+								fauxEntry.href.path = "variantrules.html";
+								if (!source) fauxEntry.href.hash += HASH_LIST_SEP + SRC_DMG;
+								fauxEntry.href.hover = {
+									page: UrlUtil.PG_VARIATNRULES,
+									source: source || SRC_DMG
+								};
+								self.recursiveEntryRender(fauxEntry, textStack, depth);
+								break;
 						}
 					}
 				} else {
@@ -832,7 +912,7 @@ function EntryRenderer () {
 					hash: procHash
 				};
 			}
-			return `onmouseover="EntryRenderer.hover.show(event, this, '${entry.href.hover.page}', '${entry.href.hover.source}', '${procHash}')"`
+			return `onmouseover="EntryRenderer.hover.mouseOver(event, this, '${entry.href.hover.page}', '${entry.href.hover.source}', '${procHash}')"`
 		}
 
 		let href;
@@ -1123,7 +1203,15 @@ EntryRenderer.feat = {
 		const abilityObj = feat.ability;
 		if (!abilityObj || feat._hasMergedAbility) return;
 		feat._hasMergedAbility = true;
-		entries.find(e => e.type === "list").items.unshift(abilityObjToListItem());
+		const targetList = entries.find(e => e.type === "list");
+		if (targetList) targetList.items.unshift(abilityObjToListItem());
+		else {
+			// this should never happen, but display sane output anyway, and throw an out-of-order exception
+			entries.unshift(abilityObjToListItem());
+			setTimeout(() => {
+				throw new Error(`Could not find object of type "list" in "entries" for feat "${feat.name}" from source "${feat.source}" when merging ability scores! Reformat the feat to include a "list"-type entry.`);
+			}, 1);
+		}
 
 		function abilityObjToListItem () {
 			const TO_MAX_OF_TWENTY = ", to a maximum of 20.";
@@ -1311,12 +1399,13 @@ EntryRenderer.background = {
 
 EntryRenderer.invocation = {
 	getPrerequisiteText: (prerequisites, orMode) => {
+		if (!prerequisites) return "";
 		const prereqs = [
 			(!prerequisites.patron || prerequisites.patron === STR_ANY) ? null : `${prerequisites.patron} patron`,
 			(!prerequisites.pact || prerequisites.pact === STR_ANY || prerequisites.pact === STR_SPECIAL) ? null : Parser.invoPactToFull(prerequisites.pact),
 			(!prerequisites.level || prerequisites.level === STR_ANY) ? null : `${Parser.levelToFull(prerequisites.level)} level`,
 			(!prerequisites.feature || prerequisites.feature === STR_NONE) ? null : `${prerequisites.feature} feature`,
-			(!prerequisites.spell || prerequisites.spell === STR_NONE) ? null : Parser.invoSpellToFull(prerequisites.spell)
+			(!prerequisites.spell || prerequisites.spell === STR_NONE) ? null : prerequisites.spell instanceof Array ? CollectionUtil.joinConjunct(prerequisites.spell.map(sp => Parser.invoSpellToFull(sp)), ", ", " or ") : Parser.invoSpellToFull(prerequisites.spell)
 		].filter(f => f);
 		if (prerequisites.or && !orMode) prerequisites.or.map(p => EntryRenderer.invocation.getPrerequisiteText(p, true)).forEach(s => prereqs.push(s));
 		if (orMode) return prereqs.join(" or ");
@@ -1443,13 +1532,14 @@ EntryRenderer.deity = {
 	getCompactRenderedString: (deity) => {
 		const renderer = EntryRenderer.getDefaultRenderer();
 		return `
-			${EntryRenderer.utils.getNameTr(deity, true, "", `, ${deity.title.toTitleCase()}`)}
+			${EntryRenderer.utils.getNameTr(deity, true, "", deity.title ? `, ${deity.title.toTitleCase()}` : "")}
 			<tr><td colspan="6">
 				<div class="summary-flexer">
 					<p><b>Pantheon:</b> ${deity.pantheon}</p>
 					${deity.category ? `<p><b>Category:</b> ${deity.category}</p>` : ""}
 					<p><b>Alignment:</b> ${deity.alignment.map(a => Parser.alignmentAbvToFull(a)).join(" ")}</p>
 					<p><b>Domains:</b> ${deity.domains.join(", ")}</p>
+					${deity.province ? `<p><b>Province:</b> ${deity.province}</p>` : ""}
 					${deity.altNames ? `<p><b>Alternate Names:</b> ${deity.altNames.join(", ")}</p>` : ""}
 					<p><b>Symbol:</b> ${deity.symbol}</p>
 				</div>
@@ -1489,13 +1579,157 @@ EntryRenderer.object = {
 };
 
 EntryRenderer.traphazard = {
+	getSubtitle (it) {
+		const type = it.trapType || "HAZ";
+		switch (type) {
+			case "SMPL":
+			case "CMPX":
+				return `${Parser.trapTypeToFull(type)} (${Parser.tierToFullLevel(it.tier)}, ${Parser.threatToFull(it.threat)} threat)`;
+			default:
+				return Parser.trapTypeToFull(type);
+		}
+	},
+
+	getSimplePart (renderer, it) {
+		if (it.trapType === "SMPL") {
+			return renderer.renderEntry({
+				entries: [
+					{
+						type: "entries",
+						name: "Trigger",
+						entries: it.trigger
+					},
+					{
+						type: "entries",
+						name: "Effect",
+						entries: it.effect
+					},
+					{
+						type: "entries",
+						name: "Countermeasures",
+						entries: it.countermeasures
+					}
+				]
+			}, 1);
+		}
+		return "";
+	},
+
+	getComplexPart (renderer, it) {
+		if (it.trapType === "CMPX") {
+			return renderer.renderEntry({
+				entries: [
+					{
+						type: "entries",
+						name: "Trigger",
+						entries: it.trigger
+					},
+					{
+						type: "entries",
+						name: "Initiative",
+						entries: [`The trap acts on ${Parser.trapInitToFull(it.initiative)}${it.initiativeNote ? ` (${it.initiativeNote})` : ""}.`]
+					},
+					it.eActive ? {
+						type: "entries",
+						name: "Active Elements",
+						entries: it.eActive
+					} : null,
+					it.eDynamic ? {
+						type: "entries",
+						name: "Dynamic Elements",
+						entries: it.eDynamic
+					} : null,
+					it.eConstant ? {
+						type: "entries",
+						name: "Constant Elements",
+						entries: it.eConstant
+					} : null,
+					{
+						type: "entries",
+						name: "Countermeasures",
+						entries: it.countermeasures
+					}
+				].filter(it => it)
+			}, 1);
+		}
+		return "";
+	},
+
 	getCompactRenderedString: (it) => {
 		const renderer = EntryRenderer.getDefaultRenderer();
 		return `
 			${EntryRenderer.utils.getNameTr(it, true)}
-			<tr class="text"><td colspan="6"><i>${Parser.trapTypeToFull(it.trapType || "HAZ")}</i></td>
+			<tr class="text"><td colspan="6"><i>${EntryRenderer.traphazard.getSubtitle(it)}</i>${EntryRenderer.traphazard.getSimplePart(renderer, it)}${EntryRenderer.traphazard.getComplexPart(renderer, it)}</td>
 			<tr class="text"><td colspan="6">${renderer.renderEntry({entries: it.entries}, 2)}</td></tr>
 		`;
+	}
+};
+
+EntryRenderer.cultboon = {
+	doRenderCultParts (it, renderer, renderStack) {
+		if (it.goal || it.cultists || it.signaturespells) {
+			const fauxList = {
+				type: "list",
+				style: "list-hang-notitle",
+				items: []
+			};
+			if (it.goal) {
+				fauxList.items.push({
+					type: "item",
+					name: "Goals:",
+					entry: it.goal.entry
+				});
+			}
+
+			if (it.cultists) {
+				fauxList.items.push({
+					type: "item",
+					name: "Typical Cultists:",
+					entry: it.cultists.entry
+				});
+			}
+			if (it.signaturespells) {
+				fauxList.items.push({
+					type: "item",
+					name: "Signature Spells:",
+					entry: it.signaturespells.entry
+				});
+			}
+			renderer.recursiveEntryRender(fauxList, renderStack, 2);
+		}
+	},
+
+	doRenderBoonParts (it, renderer, renderStack) {
+		const benefits = {type: "list", style: "list-hang-notitle", items: []};
+		benefits.items.push({
+			type: "item",
+			name: "Ability Score Adjustment:",
+			entry: it.ability ? it.ability.entry : "None"
+		});
+		benefits.items.push({
+			type: "item",
+			name: "Signature Spells:",
+			entry: it.signaturespells ? it.signaturespells.entry : "None"
+		});
+		renderer.recursiveEntryRender(benefits, renderStack, 1);
+	},
+
+	getCompactRenderedString: (it) => {
+		const renderer = EntryRenderer.getDefaultRenderer();
+
+		const renderStack = [];
+		if (it._type === "c") {
+			EntryRenderer.cultboon.doRenderCultParts(it, renderer, renderStack);
+			renderer.recursiveEntryRender({entries: it.entries}, renderStack, 2);
+			return `${EntryRenderer.utils.getNameTr(it, true)}
+				<tr id="text"><td class="divider" colspan="6"><div></div></td></tr>
+				<tr class='text'><td colspan='6' class='text'>${renderStack.join("")}</td></tr>`;
+		} else if (it._type === "b") {
+			EntryRenderer.cultboon.doRenderBoonParts(it, renderer, renderStack);
+			renderer.recursiveEntryRender({entries: it.entries}, renderStack, 1);
+			return `${EntryRenderer.utils.getNameTr(it, true)}
+			<tr class='text'><td colspan='6'>${renderStack.join("")}</td></tr>`;
+		}
 	}
 };
 
@@ -1547,7 +1781,7 @@ EntryRenderer.monster = {
 						<th>Challenge Rating</th>
 					</tr>
 					<tr>
-						<td>${mon.ac}</td>					
+						<td>${Parser.acToFull(mon.ac)}</td>					
 						<td>${EntryRenderer.monster.getRenderedHp(mon.hp)}</td>					
 						<td>${Parser.getSpeedString(mon)}</td>					
 						<td>${Parser.monCrToFull(mon.cr)}</td>					
@@ -1588,7 +1822,7 @@ EntryRenderer.monster = {
 					${mon.conditionImmune ? `<p><b>Condition Imm.:</b> ${Parser.monCondImmToFull(mon.conditionImmune)}</p>` : ""}
 				</div>
 			</td></tr>
-			${mon.trait ? `<tr><td colspan="6"><div class="border"></div></td></tr>
+			${mon.trait || mon.spellcasting ? `<tr><td colspan="6"><div class="border"></div></td></tr>
 			<tr class="text compact"><td colspan="6">
 			${EntryRenderer.monster.getOrderedTraits(mon, renderer).map(it => it.rendered || renderer.renderEntry(it, 3)).join("")}
 			</td></tr>` : ""}
@@ -1785,12 +2019,19 @@ EntryRenderer.item = {
 			"entries": t.entries
 		};
 	},
+	_addBrewPropertiesAndTypes () {
+		BrewUtil.addBrewData((brew) => {
+			(brew.itemProperty || []).forEach(p => EntryRenderer.item._addProperty(p));
+			(brew.itemType || []).forEach(t => EntryRenderer.item._addType(t));
+		});
+	},
 	/**
 	 * Runs callback with itemList as argument
 	 * @param callback
 	 * @param urls optional overrides for default URLs
+	 * @addGroups whether item groups should be included
 	 */
-	buildList: function (callback, urls) {
+	buildList: function (callback, urls, addGroups) {
 		if (EntryRenderer.item._builtList) return callback(EntryRenderer.item._builtList);
 
 		if (!urls) urls = {};
@@ -1803,11 +2044,12 @@ EntryRenderer.item = {
 		const basicItemUrl = urls.basicitems || `${EntryRenderer.getDefaultRenderer().baseUrl}data/basicitems.json`;
 		const magicVariantUrl = urls.magicvariants || `${EntryRenderer.getDefaultRenderer().baseUrl}data/magicvariants.json`;
 
-		DataUtil.loadJSON(itemUrl, addBasicItems);
+		DataUtil.loadJSON(itemUrl).then(addBasicItems);
 
 		function addBasicItems (itemData) {
 			itemList = itemData.item;
-			DataUtil.loadJSON(basicItemUrl, addVariants);
+			if (addGroups) itemList = itemList.concat(itemData.itemGroup || []);
+			DataUtil.loadJSON(basicItemUrl).then(addVariants);
 		}
 
 		function addVariants (basicItemData) {
@@ -1815,7 +2057,8 @@ EntryRenderer.item = {
 			// Convert the property and type list JSONs into look-ups, i.e. use the abbreviation as a JSON property name
 			basicItemData.itemProperty.forEach(p => EntryRenderer.item._addProperty(p));
 			basicItemData.itemType.forEach(t => EntryRenderer.item._addType(t));
-			DataUtil.loadJSON(magicVariantUrl, mergeBasicItems);
+			EntryRenderer.item._addBrewPropertiesAndTypes();
+			DataUtil.loadJSON(magicVariantUrl).then(mergeBasicItems);
 		}
 
 		function mergeBasicItems (variantData) {
@@ -1896,7 +2139,14 @@ EntryRenderer.item = {
 		if (item.entries === undefined) item.entries = [];
 		if (item.type && EntryRenderer.item._typeList[item.type]) for (let j = 0; j < EntryRenderer.item._typeList[item.type].entries.length; j++) item.entries.push(EntryRenderer.item._typeList[item.type].entries[j]);
 		if (item.property) {
-			for (let j = 0; j < item.property.length; j++) if (EntryRenderer.item._propertyList[item.property[j]].entries) for (let k = 0; k < EntryRenderer.item._propertyList[item.property[j]].entries.length; k++) item.entries.push(EntryRenderer.item._propertyList[item.property[j]].entries[k]);
+			item.property.forEach(p => {
+				if (!EntryRenderer.item._propertyList[p]) throw new Error(`Item property ${p} not found. You probably meant to load the property/type reference first; see \`EntryRenderer.item.populatePropertyAndTypeReference()\`.`);
+				if (EntryRenderer.item._propertyList[p].entries) {
+					EntryRenderer.item._propertyList[p].entries.forEach(e => {
+						item.entries.push(e);
+					})
+				}
+			});
 		}
 		// The following could be encoded in JSON, but they depend on more than one JSON property; maybe fix if really bored later
 		if (item.armor) {
@@ -1961,9 +2211,28 @@ EntryRenderer.item = {
 		}
 	},
 
-	promiseData: (urls) => {
+	promiseData: (urls, addGroups) => {
 		return new Promise((resolve, reject) => {
-			EntryRenderer.item.buildList((data) => resolve({item: data}), urls);
+			EntryRenderer.item.buildList((data) => resolve({item: data}), urls, addGroups);
+		});
+	},
+
+	_isRefPopulated: false,
+	populatePropertyAndTypeReference: () => {
+		return DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}data/basicitems.json`).then(data => {
+			if (EntryRenderer.item._isRefPopulated) {
+				Promise.resolve();
+			} else {
+				try {
+					data.itemProperty.forEach(p => EntryRenderer.item._addProperty(p));
+					data.itemType.forEach(t => EntryRenderer.item._addType(t));
+					EntryRenderer.item._addBrewPropertiesAndTypes();
+					EntryRenderer.item._isRefPopulated = true;
+					Promise.resolve();
+				} catch (e) {
+					Promise.reject(e);
+				}
+			}
 		});
 	}
 };
@@ -2085,10 +2354,35 @@ EntryRenderer.psionic = {
 	}
 };
 
+EntryRenderer.rule = {
+	getCompactRenderedString (rule) {
+		return `
+			<tr><td colspan="6">
+			${EntryRenderer.getDefaultRenderer().setFirstSection(true).renderEntry(rule)}
+			</td></tr>
+		`;
+	}
+};
+
+EntryRenderer.variantrule = {
+	getCompactRenderedString (rule) {
+		return `
+			<tr><td colspan="6">
+			${EntryRenderer.getDefaultRenderer().setFirstSection(true).renderEntry(rule)}
+			</td></tr>
+		`;
+	}
+};
+
 EntryRenderer.hover = {
 	linkCache: {},
 	_isInit: false,
 	_active: {},
+
+	_dmScreen: null,
+	bindDmScreen (screen) {
+		this._dmScreen = screen;
+	},
 
 	_addToCache: (page, source, hash, item) => {
 		page = page.toLowerCase();
@@ -2119,9 +2413,15 @@ EntryRenderer.hover = {
 	},
 
 	_doFillThenCall: (page, source, hash, callbackFn) => {
-		function loadPopulate (data, listProp) {
+		/**
+		 * @param data the data
+		 * @param listProp list property in the data
+		 * @param itemModifier optional function to run per item; takes listProp and an item as parameters
+		 */
+		function loadPopulate (data, listProp, itemModifier) {
 			data[listProp].forEach(it => {
 				const itHash = UrlUtil.URL_TO_HASH_BUILDER[page](it);
+				if (itemModifier) itemModifier(listProp, it);
 				EntryRenderer.hover._addToCache(page, it.source, itHash, it)
 			});
 		}
@@ -2132,10 +2432,10 @@ EntryRenderer.hover = {
 					if (!data[listProp]) return;
 					loadPopulate(data, listProp);
 				});
-				DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}${baseUrl}index.json`, (data) => {
+				DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}${baseUrl}index.json`).then((data) => {
 					const procData = {};
 					Object.keys(data).forEach(k => procData[k.toLowerCase()] = data[k]);
-					DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}${baseUrl}${procData[source.toLowerCase()]}`, (data) => {
+					DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}${baseUrl}${procData[source.toLowerCase()]}`).then((data) => {
 						loadPopulate(data, listProp);
 						callbackFn();
 					});
@@ -2145,15 +2445,15 @@ EntryRenderer.hover = {
 			}
 		}
 
-		function loadSimple (page, jsonFile, listProp) {
+		function loadSimple (page, jsonFile, listProp, itemModifier) {
 			if (!EntryRenderer.hover._isCached(page, source, hash)) {
 				BrewUtil.addBrewData((data) => {
 					if (!data[listProp]) return;
-					loadPopulate(data, listProp);
+					loadPopulate(data, listProp, itemModifier);
 				});
-				DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}data/${jsonFile}`, (data) => {
-					if (listProp instanceof Array) listProp.forEach(p => loadPopulate(data, p));
-					else loadPopulate(data, listProp);
+				DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}data/${jsonFile}`).then((data) => {
+					if (listProp instanceof Array) listProp.forEach(p => loadPopulate(data, p, itemModifier));
+					else loadPopulate(data, listProp, itemModifier);
 					callbackFn();
 				});
 			} else {
@@ -2174,31 +2474,29 @@ EntryRenderer.hover = {
 
 			case UrlUtil.PG_ITEMS: {
 				if (!EntryRenderer.hover._isCached(page, source, hash)) {
-					BrewUtil.addBrewData((data) => {
-						if (!data.item) return;
-						data.item.forEach(it => {
-							if (!it._isEnhanced) EntryRenderer.item.enhanceItem(it);
-							const itHash = UrlUtil.URL_TO_HASH_BUILDER[page](it);
-							EntryRenderer.hover._addToCache(page, it.source, itHash, it)
-						});
-					});
 					EntryRenderer.item.buildList((allItems) => {
+						// populate brew once the main item properties have been loaded
+						BrewUtil.addBrewData((data) => {
+							if (!data.item) return;
+							data.item.forEach(it => {
+								if (!it._isEnhanced) EntryRenderer.item.enhanceItem(it);
+								const itHash = UrlUtil.URL_TO_HASH_BUILDER[page](it);
+								EntryRenderer.hover._addToCache(page, it.source, itHash, it)
+							});
+						});
+
 						allItems.forEach(item => {
 							const itemHash = UrlUtil.URL_TO_HASH_BUILDER[UrlUtil.PG_ITEMS](item);
 							EntryRenderer.hover._addToCache(page, item.source, itemHash, item)
 						});
 						callbackFn();
-					});
+					}, {}, true);
 				} else {
 					callbackFn();
 				}
 				break;
 			}
 
-			case UrlUtil.PG_CONDITIONS: {
-				loadSimple(page, "conditions.json", "condition");
-				break;
-			}
 			case UrlUtil.PG_BACKGROUNDS: {
 				loadSimple(page, "backgrounds.json", "background");
 				break;
@@ -2225,7 +2523,7 @@ EntryRenderer.hover = {
 						if (!data.race) return;
 						loadPopulate(data, "race");
 					});
-					DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}data/races.json`, (data) => {
+					DataUtil.loadJSON(`${EntryRenderer.getDefaultRenderer().baseUrl}data/races.json`).then((data) => {
 						const merged = EntryRenderer.race.mergeSubraces(data.race);
 						merged.forEach(race => {
 							const raceHash = UrlUtil.URL_TO_HASH_BUILDER[UrlUtil.PG_RACES](race);
@@ -2250,6 +2548,20 @@ EntryRenderer.hover = {
 				loadSimple(page, "trapshazards.json", ["trap", "hazard"]);
 				break;
 			}
+			case UrlUtil.PG_VARIATNRULES: {
+				loadSimple(page, "variantrules.json", "variantrule");
+				break;
+			}
+			case UrlUtil.PG_CULTS_BOONS: {
+				loadSimple(page, "cultsboons.json", ["cult", "boon"], (listProp, item) => item._type = listProp === "cult" ? "c" : "b");
+				break;
+			}
+			case UrlUtil.PG_CONDITIONS_DISEASES: {
+				loadSimple(page, "conditionsdiseases.json", ["condition", "disease"], (listProp, item) => item._type = listProp === "condition" ? "c" : "d");
+				break;
+			}
+			default:
+				throw new Error(`No load function defined for page ${page}`);
 		}
 	},
 
@@ -2265,7 +2577,7 @@ EntryRenderer.hover = {
 		delete EntryRenderer.hover._active[hoverId];
 	},
 
-	_makeWindow: () => {
+	_makeWindow () {
 		if (!EntryRenderer.hover._curHovering) {
 			reset();
 			return;
@@ -2281,6 +2593,7 @@ EntryRenderer.hover = {
 		// if we've outrun the loading, restart
 		if (!EntryRenderer.hover._isCached(page, source, hash)) {
 			EntryRenderer.hover._showInProgress = false;
+			if ((new Date().getTime() - 5000) > EntryRenderer.hover.startTime) throw new Error(`Hover content for ${page}#${hash} took too long to load! Could this be a typo?`);
 			// pass a fake "event"
 			EntryRenderer.hover.show({shiftKey: permanent}, ele, page, source, hash);
 			return;
@@ -2333,11 +2646,30 @@ EntryRenderer.hover = {
 		const mouseUpId = `mouseup.${hoverId}`;
 		const mouseMoveId = `mousemove.${hoverId}`;
 		const resizeId = `resize.${hoverId}`;
+
+		function isOverHoverTarget (evt, target) {
+			return evt.clientX >= target.left && evt.clientX <= target.left + target.width && evt.clientY >= target.top && evt.clientY <= target.top + target.height;
+		}
+
 		$(document)
-			.on(mouseUpId, () => {
+			.on(mouseUpId, (evt) => {
 				if (drag.on) {
 					drag.on = false;
 					adjustPosition();
+
+					// handle DM screen integration
+					if (this._dmScreen) {
+						const panel = this._dmScreen.getPanelPx(evt.clientX, evt.clientY);
+						if (!panel) return;
+						this._dmScreen.setHoveringPanel(panel);
+						const target = panel.getAddButtonPos();
+
+						if (isOverHoverTarget(evt, target)) {
+							panel.doPopulate_Stats(page, source, hash);
+							altTeardown();
+						}
+						this._dmScreen.resetHoveringButton();
+					}
 				}
 			})
 			.on(mouseMoveId, (evt) => {
@@ -2350,6 +2682,17 @@ EntryRenderer.hover = {
 					drag.startY = evt.clientY;
 					drag.baseTop = parseFloat($hov.css("top"));
 					drag.baseLeft = parseFloat($hov.css("left"));
+
+					// handle DM screen integration
+					if (this._dmScreen) {
+						const panel = this._dmScreen.getPanelPx(evt.clientX, evt.clientY);
+						if (!panel) return;
+						this._dmScreen.setHoveringPanel(panel);
+						const target = panel.getAddButtonPos();
+
+						if (isOverHoverTarget(evt, target)) this._dmScreen.setHoveringButton(panel);
+						else this._dmScreen.resetHoveringButton();
+					}
 				}
 			});
 		$(window).on(resizeId, () => {
@@ -2368,12 +2711,7 @@ EntryRenderer.hover = {
 		const $btnClose = $(`<span class="delete-icon glyphicon glyphicon-remove"></span>`)
 			.on("click", (evt) => {
 				evt.stopPropagation();
-				// alternate teardown for 'x' button
-				$ele.attr("data-hover-active", false);
-				$hov.remove();
-				$(document).off(mouseUpId);
-				$(document).off(mouseMoveId);
-				$(window).off(resizeId);
+				altTeardown();
 			});
 		$brdrTop.append($btnClose);
 		$hov.append($brdrTop)
@@ -2395,7 +2733,7 @@ EntryRenderer.hover = {
 		else $hov.css("top", vpOffsetT + $(ele).height() + 1);
 
 		if (fromRight) $hov.css("left", (clientX || vpOffsetL) - $hov.width());
-		else $hov.css("left", clientX || (vpOffsetL + $(ele).width() + 1));
+		else $hov.css("left", (clientX || (vpOffsetL + $(ele).width())) + 5);
 
 		adjustPosition(true);
 
@@ -2424,10 +2762,63 @@ EntryRenderer.hover = {
 			EntryRenderer.hover._teardownWindow(hoverId);
 		}
 
+		function altTeardown () {
+			// alternate teardown for 'x' button
+			$ele.attr("data-hover-active", false);
+			$hov.remove();
+			$(document).off(mouseUpId);
+			$(document).off(mouseMoveId);
+			$(window).off(resizeId);
+			delete EntryRenderer.hover._active[hoverId];
+		}
+
 		function reset () {
 			EntryRenderer.hover._showInProgress = false;
 			EntryRenderer.hover._curHovering = null;
 		}
+	},
+
+	_pageToRenderFn (page) {
+		switch (page) {
+			case UrlUtil.PG_SPELLS:
+				return EntryRenderer.spell.getCompactRenderedString;
+			case UrlUtil.PG_ITEMS:
+				return EntryRenderer.item.getCompactRenderedString;
+			case UrlUtil.PG_BESTIARY:
+				return EntryRenderer.monster.getCompactRenderedString;
+			case UrlUtil.PG_CONDITIONS_DISEASES:
+				return EntryRenderer.condition.getCompactRenderedString;
+			case UrlUtil.PG_BACKGROUNDS:
+				return EntryRenderer.background.getCompactRenderedString;
+			case UrlUtil.PG_FEATS:
+				return EntryRenderer.feat.getCompactRenderedString;
+			case UrlUtil.PG_INVOCATIONS:
+				return EntryRenderer.invocation.getCompactRenderedString;
+			case UrlUtil.PG_PSIONICS:
+				return EntryRenderer.psionic.getCompactRenderedString;
+			case UrlUtil.PG_REWARDS:
+				return EntryRenderer.reward.getCompactRenderedString;
+			case UrlUtil.PG_RACES:
+				return EntryRenderer.race.getCompactRenderedString;
+			case UrlUtil.PG_DEITIES:
+				return EntryRenderer.deity.getCompactRenderedString;
+			case UrlUtil.PG_OBJECTS:
+				return EntryRenderer.object.getCompactRenderedString;
+			case UrlUtil.PG_TRAPS_HAZARDS:
+				return EntryRenderer.traphazard.getCompactRenderedString;
+			case UrlUtil.PG_VARIATNRULES:
+				return EntryRenderer.variantrule.getCompactRenderedString;
+			case UrlUtil.PG_CULTS_BOONS:
+				return EntryRenderer.cultboon.getCompactRenderedString;
+			default:
+				return null;
+		}
+	},
+
+	startTime: null,
+	mouseOver (evt, ele, page, source, hash, isPopout) {
+		EntryRenderer.hover.startTime = new Date().getTime();
+		EntryRenderer.hover.show(evt, ele, page, source, hash, isPopout);
 	},
 
 	_BAR_HEIGHT: 16,
@@ -2465,50 +2856,8 @@ EntryRenderer.hover = {
 		const $curWin = $(`.hoverborder[data-hover-id="${hoverId}"]`);
 		if (alreadyHovering === "true" && $curWin.length) return;
 
-		let renderFunction;
-		switch (page) {
-			case UrlUtil.PG_SPELLS:
-				renderFunction = EntryRenderer.spell.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_ITEMS:
-				renderFunction = EntryRenderer.item.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_BESTIARY:
-				renderFunction = EntryRenderer.monster.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_CONDITIONS:
-				renderFunction = EntryRenderer.condition.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_BACKGROUNDS:
-				renderFunction = EntryRenderer.background.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_FEATS:
-				renderFunction = EntryRenderer.feat.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_INVOCATIONS:
-				renderFunction = EntryRenderer.invocation.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_PSIONICS:
-				renderFunction = EntryRenderer.psionic.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_REWARDS:
-				renderFunction = EntryRenderer.reward.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_RACES:
-				renderFunction = EntryRenderer.race.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_DEITIES:
-				renderFunction = EntryRenderer.deity.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_OBJECTS:
-				renderFunction = EntryRenderer.object.getCompactRenderedString;
-				break;
-			case UrlUtil.PG_TRAPS_HAZARDS:
-				renderFunction = EntryRenderer.traphazard.getCompactRenderedString;
-				break;
-			default:
-				throw new Error(`No hover render function specified for page ${page}`)
-		}
+		const renderFunction = EntryRenderer.hover._pageToRenderFn(page);
+		if (!renderFunction) throw new Error(`No hover render function specified for page ${page}`);
 		EntryRenderer.hover._curHovering = {
 			hoverId: hoverId,
 			ele: ele,
@@ -2541,7 +2890,7 @@ EntryRenderer.hover = {
 			}
 		});
 
-		EntryRenderer.hover._doFillThenCall(page, source, hash, EntryRenderer.hover._makeWindow);
+		EntryRenderer.hover._doFillThenCall(page, source, hash, EntryRenderer.hover._makeWindow.bind(EntryRenderer.hover));
 	},
 
 	_cleanWindows: () => {
@@ -2563,11 +2912,15 @@ EntryRenderer.hover = {
 	doPopout: ($btnPop, list, index, clientX) => {
 		$btnPop.attr("data-hover-active", false);
 		const it = list[index];
-		EntryRenderer.hover.show({shiftKey: true, clientX: clientX}, $btnPop.get(), UrlUtil.getCurrentPage(), it.source, UrlUtil.autoEncodeHash(it), true);
+		EntryRenderer.hover.mouseOver({shiftKey: true, clientX: clientX}, $btnPop.get(), UrlUtil.getCurrentPage(), it.source, UrlUtil.autoEncodeHash(it), true);
 	}
 };
 
 EntryRenderer.dice = {
+	SYSTEM_USER: {
+		name: "Avandra" // goddess of luck
+	},
+
 	_$wrpRoll: null,
 	_$minRoll: null,
 	_$iptRoll: null,
@@ -2576,6 +2929,31 @@ EntryRenderer.dice = {
 	_hist: [],
 	_histIndex: null,
 	_$lastRolledBy: null,
+	_storage: null,
+
+	_panel: null,
+	bindDmScreenPanel (panel) {
+		if (EntryRenderer.dice._panel) { // there can only be one roller box
+			EntryRenderer.dice.unbindDmScreenPanel();
+		}
+		EntryRenderer.dice._showBox();
+		EntryRenderer.dice._panel = panel;
+		panel.doPopulate_Rollbox();
+	},
+
+	unbindDmScreenPanel () {
+		if (EntryRenderer.dice._panel) {
+			$(`body`).append(EntryRenderer.dice._$wrpRoll);
+			EntryRenderer.dice._panel.reset$Content();
+			EntryRenderer.dice._panel = null;
+			EntryRenderer.dice._hideBox();
+			EntryRenderer.dice._$wrpRoll.removeClass("rollbox-panel");
+		}
+	},
+
+	get$Roller () {
+		return EntryRenderer.dice._$wrpRoll;
+	},
 
 	isCrypto: () => {
 		return typeof window !== "undefined" && typeof window.crypto !== "undefined";
@@ -2628,7 +3006,7 @@ EntryRenderer.dice = {
 		if (EntryRenderer.dice._$wrpRoll.css("display") !== "flex") {
 			EntryRenderer.dice._$minRoll.hide();
 			EntryRenderer.dice._$wrpRoll.css("display", "flex");
-			EntryRenderer.dice._$iptRoll.prop("placeholder", EntryRenderer.dice._randomPlaceholder())
+			EntryRenderer.dice._$iptRoll.prop("placeholder", `${EntryRenderer.dice._randomPlaceholder()} or "/help"`);
 		}
 	},
 
@@ -2652,7 +3030,7 @@ EntryRenderer.dice = {
 		});
 		const $head = $(`<div class="head-roll"><span class="hdr-roll">Dice Roller</span><span class="delete-icon glyphicon glyphicon-remove"></span></div>`)
 			.on("click", () => {
-				EntryRenderer.dice._hideBox();
+				if (!EntryRenderer.dice._panel) EntryRenderer.dice._hideBox();
 			});
 		const $outRoll = $(`<div class="out-roll">`);
 		const $iptRoll = $(`<input class="ipt-roll form-control" autocomplete="off" spellcheck="false">`)
@@ -2682,6 +3060,8 @@ EntryRenderer.dice = {
 		EntryRenderer.dice._$iptRoll = $iptRoll;
 
 		$(`body`).append($minRoll).append($wrpRoll);
+
+		EntryRenderer.dice.storage = JSON.parse(StorageUtil.getStorage().getItem(ROLLER_MACRO_STORAGE) || "{}");
 	},
 
 	_prevHistory: () => {
@@ -2721,8 +3101,14 @@ EntryRenderer.dice = {
 			// try use table caption
 			let titleMaybe = $(ele).closest(`table`).find(`caption`).text();
 			if (titleMaybe) return titleMaybe;
+			// ty use list item title
+			titleMaybe = $(ele).parent().children(`.list-item-title`).text();
+			if (titleMaybe) return titleMaybe;
+			// try use stats table name row
+			titleMaybe = $(ele).closest(`table.stats`).children(`tbody`).first().children(`tr`).first().find(`th.name .stats-name`).text();
+			if (titleMaybe) return titleMaybe;
 			// otherwise, use the section title, where applicable
-			titleMaybe = $(ele).closest(`div`).find(`.entry-title`).first().text();
+			titleMaybe = $(ele).closest(`div`).children(`.entry-title`).first().text();
 			if (titleMaybe) {
 				titleMaybe = titleMaybe.replace(/[.,:]$/, "");
 			}
@@ -2738,7 +3124,8 @@ EntryRenderer.dice = {
 			if ($roll.length) {
 				return $roll.data("name");
 			}
-			return document.title.replace("- 5etools", "").trim();
+			let name = document.title.replace("- 5etools", "").trim();
+			return name === "DM Screen" ? "Dungeon Master" : name;
 		}
 
 		function getThRoll (total) {
@@ -2770,12 +3157,16 @@ EntryRenderer.dice = {
 	},
 
 	roll: (str, rolledBy) => {
-		if (!str.trim()) return;
-		const toRoll = EntryRenderer.dice._parse(str);
-		if (rolledBy.user) {
-			EntryRenderer.dice._addHistory(str);
+		str = str.trim();
+		if (!str) return;
+		if (rolledBy.user) EntryRenderer.dice._addHistory(str);
+
+		if (str.startsWith("/")) EntryRenderer.dice._handleCommand(str, rolledBy);
+		else if (str.startsWith("#")) EntryRenderer.dice._handleSavedRoll(str, rolledBy);
+		else {
+			const toRoll = EntryRenderer.dice._parse(str);
+			EntryRenderer.dice._handleRoll(toRoll, rolledBy);
 		}
-		EntryRenderer.dice._handleRoll(toRoll, rolledBy);
 	},
 
 	rollEntry: (entry, rolledBy, cbMessage) => {
@@ -2813,9 +3204,96 @@ EntryRenderer.dice = {
 					${cbMessage ? `<span class="message">${cbMessage(v.total)}</span>` : ""}
 				</div>`);
 		} else {
-			$out.append(`<div class="out-roll-item">Invalid roll!</div>`);
+			$out.append(`<div class="out-roll-item">Invalid input! Try &quot;/help&quot;</div>`);
 		}
 		EntryRenderer.dice._scrollBottom();
+	},
+
+	_showMessage (message, rolledBy) {
+		EntryRenderer.dice._showBox();
+		EntryRenderer.dice._checkHandleName(rolledBy.name);
+		const $out = EntryRenderer.dice._$lastRolledBy;
+		$out.append(`<div class="out-roll-item">${message}</div>`);
+		EntryRenderer.dice._scrollBottom();
+	},
+
+	_handleCommand (com, rolledBy) {
+		EntryRenderer.dice._showMessage(`<span class="out-roll-item-code">${com}</span>`, rolledBy); // parrot the user's command back to them
+		const PREF_MACRO = "/macro";
+		function showInvalid () {
+			EntryRenderer.dice._showMessage("Invalid input! Try &quot;/help&quot;", EntryRenderer.dice.SYSTEM_USER);
+		}
+
+		function checkLength (arr, desired) {
+			return arr.length === desired;
+		}
+
+		function save () {
+			StorageUtil.set(ROLLER_MACRO_STORAGE, EntryRenderer.dice.storage);
+		}
+
+		if (com === "/help") {
+			EntryRenderer.dice._showMessage(
+				`Use <span class="out-roll-item-code">${PREF_MACRO} list</span> to list saved macros.<br>
+				Use <span class="out-roll-item-code">${PREF_MACRO} add myName 1d2+3</span> to add (or update) a macro. Macro names should not contain spaces or hashes.<br>
+				Use <span class="out-roll-item-code">${PREF_MACRO} remove myName</span> to remove a macro.<br>
+				Use <span class="out-roll-item-code">#myName</span> to roll a macro.`,
+				EntryRenderer.dice.SYSTEM_USER
+			);
+		} else if (com.startsWith(PREF_MACRO)) {
+			const [_, mode, ...others] = com.split(/\s+/);
+
+			if (!["list", "add", "remove"].includes(mode)) showInvalid();
+			else {
+				switch (mode) {
+					case "list":
+						if (checkLength(others, 0)) {
+							Object.keys(EntryRenderer.dice.storage).forEach(name => {
+								EntryRenderer.dice._showMessage(`<span class="out-roll-item-code">#${name}</span> \u2014 ${EntryRenderer.dice.storage[name]}`, EntryRenderer.dice.SYSTEM_USER);
+							})
+						} else {
+							showInvalid();
+						}
+						break;
+					case "add": {
+						if (checkLength(others, 2)) {
+							const [name, macro] = others;
+							if (name.includes(" ") || name.includes("#")) showInvalid();
+							else {
+								EntryRenderer.dice.storage[name] = macro;
+								save();
+								EntryRenderer.dice._showMessage(`Saved macro <span class="out-roll-item-code">#${name}</span>`, EntryRenderer.dice.SYSTEM_USER);
+							}
+						} else {
+							showInvalid();
+						}
+						break;
+					}
+					case "remove":
+						if (checkLength(others, 1)) {
+							if (EntryRenderer.dice.storage[others[0]]) {
+								delete EntryRenderer.dice.storage[others[0]];
+								save();
+								EntryRenderer.dice._showMessage(`Removed macro <span class="out-roll-item-code">#${others[0]}</span>`, EntryRenderer.dice.SYSTEM_USER);
+							} else {
+								EntryRenderer.dice._showMessage(`Macro <span class="out-roll-item-code">#${others[0]}</span> not found`, EntryRenderer.dice.SYSTEM_USER);
+							}
+						} else {
+							showInvalid();
+						}
+						break;
+				}
+			}
+		} else showInvalid();
+	},
+
+	_handleSavedRoll (id, rolledBy) {
+		id = id.replace(/^#/, "");
+		const macro = EntryRenderer.dice.storage[id];
+		if (macro) {
+			const toRoll = EntryRenderer.dice._parse(macro);
+			EntryRenderer.dice._handleRoll(toRoll, rolledBy);
+		} else EntryRenderer.dice._showMessage(`Macro <span class="out-roll-item-code">#${id}</span> not found`, EntryRenderer.dice.SYSTEM_USER);
 	},
 
 	getDiceSummary: (v, textOnly) => {
@@ -3090,4 +3568,5 @@ EntryRenderer.DATA_NONE = "data-none";
 
 if (typeof module !== "undefined") {
 	module.exports.EntryRenderer = EntryRenderer;
+	global.EntryRenderer = EntryRenderer;
 }

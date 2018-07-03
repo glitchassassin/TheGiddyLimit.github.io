@@ -186,12 +186,12 @@ function getSpellSource (spellName) {
 }
 
 function loadSources () {
-	DataUtil.promiseJSON(`data/spells/index.json`)
-		.then(index => Promise.all(Object.values(index).map(f => DataUtil.promiseJSON(`data/spells/${f}`))))
+	DataUtil.loadJSON(`data/spells/index.json`)
+		.then(index => Promise.all(Object.values(index).map(f => DataUtil.loadJSON(`data/spells/${f}`))))
 		.then(spellData => {
 			// reversed so official sources take precedence over 3pp
 			spellData.reverse().forEach(d => d.spell.forEach(s => SPELL_SRC_MAP[s.name.toLowerCase()] = s.source));
-			DataUtil.loadJSON(JSON_URL, loadparser);
+			DataUtil.loadJSON(JSON_URL).then(loadparser);
 		});
 }
 
@@ -283,10 +283,12 @@ function loadparser (data) {
 		// split HP into average and formula
 		const m = /^(\d+) \((.*?)\)$/.exec(rawHp);
 		if (!m) stats.hp = {special: rawHp}; // for e.g. Avatar of Death
-		stats.hp = {
-			average: Number(m[1]),
-			formula: m[2]
-		};
+		else {
+			stats.hp = {
+				average: Number(m[1]),
+				formula: m[2]
+			};
+		}
 	}
 
 	function setCleanSpeed (stats, line) {
@@ -327,7 +329,7 @@ function loadparser (data) {
 		let byHand = false;
 
 		splitSpeed(line.toLowerCase()).map(it => it.trim()).forEach(s => {
-			const m = /^(\w+?\s+)?(\d+) ft\.( .*)?$/.exec(s);
+			const m = /^(\w+?\s+)?(\d+)\s*ft\.( .*)?$/.exec(s);
 			if (!m) {
 				byHand = true;
 				return;
@@ -393,7 +395,7 @@ function loadparser (data) {
 	}
 
 	function setCleanDamageRes (stats, line) {
-		stats.resist = line.split("Resistances")[1].trim();
+		stats.resist = (line.includes("Resistances") ? line.split("Resistances") : line.split("Resistance"))[1].trim();
 		stats.resist = tryParseSpecialDamage(stats.resist, "resist");
 	}
 
@@ -408,10 +410,10 @@ function loadparser (data) {
 	}
 
 	function setCleanSenses (stats, line) {
-		stats.senses = line.split("Senses")[1].split("passive Perception")[0].trim();
-		if (!stats.senses.indexOf("passive Perception")) stats.senses = "";
+		stats.senses = line.toLowerCase().split("senses")[1].split("passive perception")[0].trim();
+		if (!stats.senses.indexOf("passive perception")) stats.senses = "";
 		if (stats.senses[stats.senses.length - 1] === ",") stats.senses = stats.senses.substring(0, stats.senses.length - 1);
-		stats.passive = tryConvertNumber(line.split("passive Perception")[1].trim());
+		stats.passive = tryConvertNumber(line.toLowerCase().split("passive perception")[1].trim());
 	}
 
 	function setCleanLanguages (stats, line) {
@@ -726,7 +728,14 @@ function loadparser (data) {
 		}
 
 		function stripLeadingSymbols (line) {
-			return line.replace(/^[^A-Za-z0-9]*/, "").trim();
+			const removeFirstInnerStar = line.trim().startsWith("*");
+			const clean = line.replace(/^[^A-Za-z0-9]*/, "").trim();
+			return removeFirstInnerStar ? clean.replace(/\*/, "") : clean;
+		}
+
+		function isInlineHeader (line) {
+			// it should really start with "***" but, homebrew
+			return line.trim().startsWith("**");
 		}
 
 		const toConvert = getCleanInput(editor.getValue()).split("\n");
@@ -754,13 +763,14 @@ function loadparser (data) {
 		}
 
 		let prevLine = null;
+		let curLineRaw = null;
 		let curLine = null;
 		let prevBlank = true;
 		let nextPrevBlank = true;
 		let trait = null;
 
 		function getCleanTraitText (line) {
-			return line.replace(/^\*\*\*/, "").split(/.\s*\*\*\*/).map(it => it.trim());
+			return line.replace(/^\*\*\*?/, "").split(/.\s*\*\*\*?/).map(it => it.trim());
 		}
 
 		function doAddFromParsed () {
@@ -829,15 +839,19 @@ function loadparser (data) {
 		let i = 0;
 		for (; i < toConvert.length; i++) {
 			prevLine = curLine;
+			curLineRaw = toConvert[i].trim();
 			curLine = toConvert[i].trim();
 
-			if (curLine === "") {
+			if (curLine === "" || curLine.toLowerCase() === "\\pagebreak" || curLine.toLowerCase() === "\\columnbreak") {
 				prevBlank = true;
 				continue;
 			} else nextPrevBlank = false;
 			curLine = stripQuote(curLine).trim();
 			if (curLine === "") continue;
-			else if (curLine === "___" && prevBlank) {
+			else if (
+				(curLine === "___" && prevBlank) || // handle nicely separated blocks
+				curLineRaw === "___" // handle multiple stacked blocks
+			) {
 				if (stats !== null) hasMultipleBlocks = true;
 				doOutputStatblock();
 				prevBlank = nextPrevBlank;
@@ -970,7 +984,7 @@ function loadparser (data) {
 
 			// traits
 			if (parsed === 9) {
-				if (curLine.includes("***")) {
+				if (isInlineHeader(curLine)) {
 					doAddTrait();
 					trait = {name: "", entries: []};
 					const [name, text] = getCleanTraitText(curLine);
@@ -983,7 +997,7 @@ function loadparser (data) {
 
 			// actions
 			if (parsed === 10) {
-				if (curLine.includes("***")) {
+				if (isInlineHeader(curLine)) {
 					doAddAction();
 					trait = {name: "", entries: []};
 					const [name, text] = getCleanTraitText(curLine);
@@ -996,7 +1010,7 @@ function loadparser (data) {
 
 			// reactions
 			if (parsed === 11) {
-				if (curLine.includes("***")) {
+				if (isInlineHeader(curLine)) {
 					doAddReaction();
 					trait = {name: "", entries: []};
 					const [name, text] = getCleanTraitText(curLine);
@@ -1009,7 +1023,7 @@ function loadparser (data) {
 
 			// legendary actions
 			if (parsed === 12) {
-				if (curLine.includes("***")) {
+				if (isInlineHeader(curLine)) {
 					doAddLegendary();
 					trait = {name: "", entries: []};
 					const [name, text] = getCleanTraitText(curLine);

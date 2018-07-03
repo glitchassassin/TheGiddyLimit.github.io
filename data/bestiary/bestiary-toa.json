@@ -9,7 +9,14 @@
 				"L",
 				"E"
 			],
-			"ac": "21 (natural armor)",
+			"ac": [
+				{
+					"ac": 21,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 285,
 				"formula": "30d8+150"
@@ -240,7 +247,14 @@
 			"alignment": [
 				"A"
 			],
-			"ac": "13 (hide armor)",
+			"ac": [
+				{
+					"ac": 13,
+					"from": [
+						"{@item hide armor|phb}"
+					]
+				}
+			],
 			"hp": {
 				"average": 30,
 				"formula": "4d8+12"
@@ -316,7 +330,14 @@
 				"L",
 				"N"
 			],
-			"ac": "14 (natural armor)",
+			"ac": [
+				{
+					"ac": 14,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 49,
 				"formula": "9d8+9"
@@ -374,7 +395,9 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "13",
+			"ac": [
+				13
+			],
 			"hp": {
 				"average": 3,
 				"formula": "1d6"
@@ -428,7 +451,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "14 (natural armor)",
+			"ac": [
+				{
+					"ac": 14,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 68,
 				"formula": "8d12+16"
@@ -483,7 +513,14 @@
 				"N",
 				"G"
 			],
-			"ac": "14 (studded leather)",
+			"ac": [
+				{
+					"ac": 14,
+					"from": [
+						"{@item studded leather armor|phb}"
+					]
+				}
+			],
 			"hp": {
 				"average": 82,
 				"formula": "15d8+15"
@@ -535,7 +572,7 @@
 				{
 					"name": "Multiattack",
 					"entries": [
-						"Artus makes three attacks with Bookmark his longbow."
+						"Artus makes three attacks with Bookmark or his longbow."
 					]
 				},
 				{
@@ -570,7 +607,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "13 (natural armor)",
+			"ac": [
+				{
+					"ac": 13,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 85,
 				"formula": "10d10+30"
@@ -636,7 +680,9 @@
 				"L",
 				"E"
 			],
-			"ac": "7",
+			"ac": [
+				7
+			],
 			"hp": {
 				"average": 225,
 				"formula": "18d12+108"
@@ -762,7 +808,9 @@
 			"alignment": [
 				"N"
 			],
-			"ac": "15",
+			"ac": [
+				15
+			],
 			"hp": {
 				"average": 5,
 				"formula": "2d4"
@@ -824,7 +872,7 @@
 				{
 					"name": "Natural Shelter",
 					"entries": [
-						"The chwinga magically takes shelter inside a rock, a living plant, or a natural source of fresh water in its space. The chwinga can't be targeted by any attack, spell, or other effect while inside this shelter, and the shelter doesn't impair the chwinga's blindsight.The chwinga can use it's action to emerge from a shelter. If its shelter is destroyed, the chwinga is forced out and appears in the shelter's space, but is otherwise unharmed."
+						"The chwinga magically takes shelter inside a rock, a living plant, or a natural source of fresh water in its space. The chwinga can't be targeted by any attack, spell, or other effect while inside this shelter, and the shelter doesn't impair the chwinga's blindsight. The chwinga can use it's action to emerge from a shelter. If its shelter is destroyed, the chwinga is forced out and appears in the shelter's space, but is otherwise unharmed."
 					]
 				}
 			],
@@ -844,7 +892,15 @@
 				"L",
 				"G"
 			],
-			"ac": "17 (breastplate, shield)",
+			"ac": [
+				{
+					"ac": 17,
+					"from": [
+						"{@item breastplate|phb}",
+						"{@item shield|phb}"
+					]
+				}
+			],
 			"hp": {
 				"average": 120,
 				"formula": "16d8+48"
@@ -914,7 +970,9 @@
 				"L",
 				"E"
 			],
-			"ac": "13",
+			"ac": [
+				13
+			],
 			"hp": {
 				"average": 26,
 				"formula": "4d10+4"
@@ -954,8 +1012,13 @@
 				{
 					"name": "Multiattack",
 					"entries": [
-						"The eblis attacks twice with its beak.",
-						"Beak Melee Weapon Attack: {@hit +5} to hit, reach 5 ft., one target Hit: 5 ({@dice 1d4+3}) piercing damage."
+						"The eblis attacks twice with its beak."
+					]
+				},
+				{
+					"name": "Beak",
+					"entries": [
+						"Melee Weapon Attack: {@hit +5} to hit, reach 5 ft., one target Hit: 5 ({@dice 1d4+3}) piercing damage."
 					]
 				}
 			],
@@ -969,7 +1032,9 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "12",
+			"ac": [
+				12
+			],
 			"hp": {
 				"average": 3,
 				"formula": "1d6+4"
@@ -1014,10 +1079,17 @@
 				"C",
 				"E"
 			],
-			"ac": "17 (natural armor)",
+			"ac": [
+				{
+					"ac": 17,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 147,
-				"formula": "1d10+70"
+				"formula": "14d10+70"
 			},
 			"speed": {
 				"walk": 30,
@@ -1095,7 +1167,18 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "17 (natural armor), 12 while prone",
+			"ac": [
+				{
+					"ac": 17,
+					"from": [
+						"natural armor"
+					]
+				},
+				{
+					"ac": 12,
+					"condition": "while prone"
+				}
+			],
 			"hp": {
 				"average": 75,
 				"formula": "10d10+20"
@@ -1110,7 +1193,7 @@
 			"int": 2,
 			"wis": 12,
 			"cha": 5,
-			"senses": "darvision 60 ft.",
+			"senses": "darkvision 60 ft.",
 			"passive": 11,
 			"cr": "3",
 			"trait": [
@@ -1146,7 +1229,14 @@
 				"C",
 				"E"
 			],
-			"ac": "11 (natural armor)",
+			"ac": [
+				{
+					"ac": 11,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 59,
 				"formula": "7d10+21"
@@ -1214,7 +1304,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "14 (natural armor)",
+			"ac": [
+				{
+					"ac": 14,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 16,
 				"formula": "3d10"
@@ -1275,7 +1372,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "13 (natural armor)",
+			"ac": [
+				{
+					"ac": 13,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 67,
 				"formula": "9d10+18"
@@ -1305,7 +1409,7 @@
 				{
 					"name": "Pounce",
 					"entries": [
-						"If the kamadan moves at least 20 feet straight toward a creature and then hits it with a claw attack on the same turn that target must succeed on a DC 13 Strength saving throw or be knocked prone. If the target is knocked prone, the kamadan can make two attacks\u2014one with its bite and one with its snakes\u2014against it as a bonus action."
+						"If the kamadan moves at least 20 feet straight toward a creature and then hits it with a claw attack on the same turn that target must succeed on a DC 13 Strength saving throw or be knocked prone. If the target is knocked prone, the kamadan can make two attacks—one with its bite and one with its snakes—against it as a bonus action."
 					]
 				}
 			],
@@ -1357,7 +1461,15 @@
 				"L",
 				"E"
 			],
-			"ac": "15 (studded leather, shield)",
+			"ac": [
+				{
+					"ac": 15,
+					"from": [
+						"{@item studded leather armor|phb}",
+						"{@item shield|phb}"
+					]
+				}
+			],
 			"hp": {
 				"average": 84,
 				"formula": "13d8+26"
@@ -1428,7 +1540,9 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "12",
+			"ac": [
+				12
+			],
 			"hp": {
 				"average": 45,
 				"formula": "7d10+7"
@@ -1493,7 +1607,9 @@
 				"L",
 				"N"
 			],
-			"ac": "10",
+			"ac": [
+				10
+			],
 			"hp": {
 				"average": 13,
 				"formula": "3d8"
@@ -1559,7 +1675,14 @@
 				"L",
 				"E"
 			],
-			"ac": "12 (natural armor)",
+			"ac": [
+				{
+					"ac": 12,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 26,
 				"formula": "4d10+4"
@@ -1632,7 +1755,14 @@
 				"N",
 				"E"
 			],
-			"ac": "15 (bracers of defense)",
+			"ac": [
+				{
+					"ac": 15,
+					"from": [
+						"{@item bracers of defense}"
+					]
+				}
+			],
 			"hp": {
 				"special": "127 (17d8+51) reduced to 107; subtract 1 for each day that passes during the adventure"
 			},
@@ -1683,7 +1813,7 @@
 				{
 					"name": "Spellcasting",
 					"headerEntries": [
-						"Ras Nsi is an 11th-level spellcaster. His spellcasting ability is intelligence (spell save DC 15, {@hit 7} to hit with spell attacks).",
+						"Ras Nsi is an 11th-level spellcaster. His spellcasting ability is Intelligence (spell save DC 15, {@hit 7} to hit with spell attacks).",
 						"Ras Nsi has the following wizard spells prepared:"
 					],
 					"spells": {
@@ -1786,7 +1916,7 @@
 				{
 					"name": "Flame Tongue Longsword (Yuan-ti Form Only)",
 					"entries": [
-						"Melee Weapon Arrack: {@hit +6} to hit, reach 5 ft., one target. Hit: 7 ({@dice 1d8+3}) slashing damage, or 8 ({@dice 1d10+3}) slashing damage when used with two hands, plus 7 ({@dice 2d6}) fire damage."
+						"Melee Weapon Attack: {@hit +6} to hit, reach 5 ft., one target. Hit: 7 ({@dice 1d8+3}) slashing damage, or 8 ({@dice 1d10+3}) slashing damage when used with two hands, plus 7 ({@dice 2d6}) fire damage."
 					]
 				}
 			],
@@ -1800,7 +1930,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "15 (natural armor)",
+			"ac": [
+				{
+					"ac": 15,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 157,
 				"formula": "15d10+75"
@@ -1887,7 +2024,9 @@
 				"C",
 				"E"
 			],
-			"ac": "12",
+			"ac": [
+				12
+			],
 			"hp": {
 				"average": 27,
 				"formula": "5d8+5"
@@ -1928,7 +2067,7 @@
 					]
 				},
 				{
-					"name": "Psychic Crush (Recharge 5\u20146)",
+					"name": "Psychic Crush (Recharge 5—6)",
 					"entries": [
 						"The su-monster targets one creature it can see within 30 feet of it. The target must succeed on a DC 11 Wisdom saving throw or take 17 ({@dice 5d6}) psychic damage and be stunned for 1 minute. The stunned target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
 					]
@@ -1950,7 +2089,14 @@
 				"C",
 				"G"
 			],
-			"ac": "14 (leather armor)",
+			"ac": [
+				{
+					"ac": 14,
+					"from": [
+						"{@item leather armor|phb}"
+					]
+				}
+			],
 			"hp": {
 				"average": 40,
 				"formula": "9d8"
@@ -2025,7 +2171,9 @@
 				"C",
 				"G"
 			],
-			"ac": "12",
+			"ac": [
+				12
+			],
 			"hp": {
 				"average": 22,
 				"formula": "5d8"
@@ -2094,7 +2242,9 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "10",
+			"ac": [
+				10
+			],
 			"hp": {
 				"average": 11,
 				"formula": "2d8+2"
@@ -2153,7 +2303,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "11 (natural armor)",
+			"ac": [
+				{
+					"ac": 11,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 136,
 				"formula": "13d12+52"
@@ -2226,7 +2383,9 @@
 				"C",
 				"G"
 			],
-			"ac": "11",
+			"ac": [
+				11
+			],
 			"hp": {
 				"average": 31,
 				"formula": "7d8"
@@ -2309,7 +2468,14 @@
 				"L",
 				"E"
 			],
-			"ac": "13 (natural armor)",
+			"ac": [
+				{
+					"ac": 13,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 71,
 				"formula": "11d8+22"
@@ -2417,7 +2583,9 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "6",
+			"ac": [
+				6
+			],
 			"hp": {
 				"average": 60,
 				"formula": "11d8+11"
@@ -2479,7 +2647,9 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "9",
+			"ac": [
+				9
+			],
 			"hp": {
 				"average": 33,
 				"formula": "6d8+6"
@@ -2532,7 +2702,14 @@
 				"L",
 				"G"
 			],
-			"ac": "13 (natural armor)",
+			"ac": [
+				{
+					"ac": 13,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 110,
 				"formula": "17d8+34"
@@ -2643,11 +2820,11 @@
 				{
 					"name": "Quarterstaff",
 					"entries": [
-						"Melee Weapon Attack: {@hit +5} to hit, reach 5 ft., one target. Hit: 5 ({@dice 1d6+2}) bludgeoning damage, or 6 ({@dice 1d8+2}) bludgeoning damage when used with two hands. Breath Weapon (Recharge 5-6). Zindar uses one of the following options:"
+						"Melee Weapon Attack: {@hit +5} to hit, reach 5 ft., one target. Hit: 5 ({@dice 1d6+2}) bludgeoning damage, or 6 ({@dice 1d8+2}) bludgeoning damage when used with two hands."
 					]
 				},
 				{
-					"name": "Breath Weapon (Recharge 5\u20146)",
+					"name": "Breath Weapon (Recharge 5—6)",
 					"entries": [
 						"Zindar uses one of the following options:"
 					]
@@ -2675,7 +2852,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "10 (see Natural Armor feature)",
+			"ac": [
+				{
+					"ac": 10,
+					"from": [
+						"see Natural Armor feature"
+					]
+				}
+			],
 			"hp": {
 				"average": 27,
 				"formula": "6d6+6"
@@ -2727,7 +2911,14 @@
 			"alignment": [
 				"U"
 			],
-			"ac": "13 (natural armor)",
+			"ac": [
+				{
+					"ac": 13,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
 			"hp": {
 				"average": 200,
 				"formula": "19d12+52"
@@ -2780,7 +2971,7 @@
 					]
 				},
 				{
-					"name": "Summon Swarm (Recharge 5\u20146)",
+					"name": "Summon Swarm (Recharge 5—6)",
 					"entries": [
 						"The King of Feathers exhales a swarm of insects (wasps) that forms in a space within 20 feet of it. The swarm acts as an ally of the King of Feathers and takes its turn immediately after it. The swarm disperses after 1 minute. It can't use the Summon Swarm action while it is grappling a creature with its jaws."
 					]
@@ -2808,7 +2999,14 @@
 				"L",
 				"E"
 			],
-			"ac": "14 (studded leather)",
+			"ac": [
+				{
+					"ac": 14,
+					"from": [
+						"{@item studded leather armor|phb}"
+					]
+				}
+			],
 			"hp": {
 				"average": 45,
 				"formula": "6d8+18"
@@ -2954,7 +3152,9 @@
 				"L",
 				"N"
 			],
-			"ac": "12",
+			"ac": [
+				12
+			],
 			"hp": {
 				"average": 31,
 				"formula": "7d8"
@@ -3054,6 +3254,297 @@
 				}
 			],
 			"page": 69
+		},
+		{
+			"name": "Valindra Shadowmantle",
+			"size": "M",
+			"type": "undead",
+			"source": "ToA",
+			"alignment": [
+				"N",
+				"E"
+			],
+			"ac": [
+				{
+					"ac": 17,
+					"from": [
+						"natural armor"
+					]
+				}
+			],
+			"hp": {
+				"average": 135,
+				"formula": "18d8+54"
+			},
+			"speed": {
+				"walk": 30
+			},
+			"str": 11,
+			"dex": 16,
+			"con": 16,
+			"int": 20,
+			"wis": 14,
+			"cha": 16,
+			"save": {
+				"con": "+10",
+				"int": "+12",
+				"wis": "+9"
+			},
+			"skill": {
+				"arcana": "+18",
+				"history": "+12",
+				"insight": "+9",
+				"perception": "+9"
+			},
+			"resist": [
+				"cold",
+				"lightning",
+				"necrotic"
+			],
+			"immune": [
+				"poison",
+				{
+					"immune": [
+						"bludgeoning",
+						"piercing",
+						"slashing"
+					],
+					"note": "from nonmagical attacks"
+				}
+			],
+			"conditionImmune": [
+				"charmed",
+				"exhaustion",
+				"frightened",
+				"paralyzed",
+				"poisoned"
+			],
+			"senses": "truesight 120 ft.",
+			"passive": 19,
+			"languages": "Common, Abyssal, Draconic, Dwarvish, Elvish, Infernal",
+			"cr": "21",
+			"page": 58,
+			"trait": [
+				{
+					"name": "Mask",
+					"entries": [
+						"As a bonus action, Valindra can mask her shriveled flesh and appear to be a living elf. This magical illusion lasts until she ends it as a bonus action or until she uses her Frightening Gaze legendary action. The effect also ends if Valindra drops to 30 hit points or fewer, or if dispel magic is cast on her."
+					]
+				},
+				{
+					"name": "Preparation",
+					"entries": [
+						"When preparing her spells, Valindra can swap out any spell on her list of prepared spells for another wizard spell of the same level."
+					]
+				},
+				{
+					"name": "Legendary Resistance (3/Day)",
+					"entries": [
+						"If Valindra fails a saving throw, she can choose to succeed instead."
+					]
+				},
+				{
+					"name": "Rejuvenation",
+					"entries": [
+						"If destroyed Valindra gains a new body in {@dice 1d10} days, regaining all her hit points and becoming active again. The new body appears within 5 feet of the phylactery."
+					]
+				},
+				{
+					"name": "Turn Resistance",
+					"entries": [
+						"Valindra has advantage on saving throws against any effect that turns undead."
+					]
+				}
+			],
+			"action": [
+				{
+					"name": "Paralyzing Touch",
+					"entries": [
+						"Melee Spell Attack: {@hit +12} to hit, reach 5 ft., one creature. Hit: 10 ({@dice 3d6}) cold damage. The target must succeed on a DC 18 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+					]
+				}
+			],
+			"legendary": [
+				{
+					"name": "Cantrip",
+					"entries": [
+						"Valindra casts a cantrip."
+					]
+				},
+				{
+					"name": "Paralyzing Touch (Costs 2 Actions)",
+					"entries": [
+						"Valindra uses her Paralyzing Touch."
+					]
+				},
+				{
+					"name": "Frightening Gaze (Costs 2 Actions)",
+					"entries": [
+						"Valindra fixes her gaze on one creature she can see within 10 feet of her. The target must succeed on a DC 18 Wisdom saving throw against this magic or become frightened for 1 minute. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a target's saving throw is successful or the effect ends for it, the target is immune to the Valindra's gaze for the next 24 hours."
+					]
+				},
+				{
+					"name": "Disrupt Life (Costs 3 Actions)",
+					"entries": [
+						"Each non-undead creature within 20 feet of Valindra must make a DC 18 Constitution saving throw against this magic, taking 21 ({@dice 6d6}) necrotic damage on a failed save, or half as much damage on a successful one."
+					]
+				}
+			],
+			"spellcasting": [
+				{
+					"name": "Spellcasting",
+					"headerEntries": [
+						"Valindra is an 18th-level spellcaster. Her spellcasting ability is Intelligence (spell save DC 20, {@hit +12} to hit with spell attacks). Valindra has the following wizard spells prepared:"
+					],
+					"spells": {
+						"0": {
+							"spells": [
+								"{@spell mage hand}",
+								"{@spell prestidigitation}",
+								"{@spell ray of frost}"
+							]
+						},
+						"1": {
+							"slots": 4,
+							"spells": [
+								"{@spell detect magic}",
+								"{@spell magic missile}",
+								"{@spell shield}",
+								"{@spell thunderwave}"
+							]
+						},
+						"2": {
+							"slots": 3,
+							"spells": [
+								"{@spell detect thoughts}",
+								"{@spell invisibility}",
+								"{@spell Melf's acid arrow}",
+								"{@spell mirror image}"
+							]
+						},
+						"3": {
+							"slots": 3,
+							"spells": [
+								"{@spell animate dead}",
+								"{@spell counterspell}",
+								"{@spell dispel magic}",
+								"{@spell fireball}"
+							]
+						},
+						"4": {
+							"slots": 3,
+							"spells": [
+								"{@spell blight}",
+								"{@spell dimension door}"
+							]
+						},
+						"5": {
+							"slots": 3,
+							"spells": [
+								"{@spell cloudkill}",
+								"{@spell scrying}"
+							]
+						},
+						"6": {
+							"slots": 1,
+							"spells": [
+								"{@spell disintegrate}",
+								"{@spell globe of invulnerability}"
+							]
+						},
+						"7": {
+							"slots": 1,
+							"spells": [
+								"{@spell finger of death}",
+								"{@spell plane shift}"
+							]
+						},
+						"8": {
+							"slots": 1,
+							"spells": [
+								"{@spell dominate monster}",
+								"{@spell power word stun}"
+							]
+						},
+						"9": {
+							"slots": 1,
+							"spells": [
+								"{@spell power word kill}"
+							]
+						}
+					}
+				}
+			],
+			"isNamedCreature": true
+		},
+		{
+			"name": "Hew Hackinstone",
+			"size": "M",
+			"type": {
+				"type": "humanoid",
+				"tags": [
+					"dwarf"
+				]
+			},
+			"source": "ToA",
+			"alignment": [
+				"C",
+				"N"
+			],
+			"ac": [
+				{
+					"ac": 13,
+					"from": [
+						"{@item hide armor|phb}"
+					]
+				}
+			],
+			"hp": {
+				"average": 67,
+				"formula": "9d8+27"
+			},
+			"speed": {
+				"walk": 30
+			},
+			"str": 16,
+			"dex": 12,
+			"con": 17,
+			"int": 9,
+			"wis": 11,
+			"cha": 9,
+			"skill": {
+				"survival": "+4"
+			},
+			"resist": [
+				"poison"
+			],
+			"senses": "Darkvision 60 ft.",
+			"passive": 10,
+			"languages": "any one language (usually Common)",
+			"cr": "2",
+			"page": 33,
+			"trait": [
+				{
+					"name": "Dwarven Resilience",
+					"entries": [
+						"Hew has resistance to poison damage and advantage on saving throws against being poisoned."
+					]
+				},
+				{
+					"name": "Reckless",
+					"entries": [
+						"At the start of his turn, Hew can gain advantage on all melee weapon attack rolls during that turn, but attack rolls against him have advantage until the start of his next turn."
+					]
+				}
+			],
+			"action": [
+				{
+					"name": "Battleaxe",
+					"entries": [
+						"Melee Weapon Attack: {@hit +5} to hit, reach 5 ft., one target. Hit: 7 ({@dice 1d8+3}) slashing damage."
+					]
+				}
+			]
 		}
 	]
 }
